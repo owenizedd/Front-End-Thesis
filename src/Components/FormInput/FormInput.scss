@@ -1,0 +1,33 @@
+@import '../Variables.scss';
+
+
+.form-input{
+  border-radius: 5px;
+  padding: 5px 8px;
+  background: $color-bg-darker;
+  color: $color-light-grey;
+  border: 1px solid $color-light-grey;
+  line-height: 1.5;
+  box-shadow: 0px 3px 5px rgba(0,0,0,.7);
+  letter-spacing: 2px;
+  box-sizing: border-box;
+  
+}
+
+.form-input.password{
+  padding-right: 45px;
+  
+}
+
+.eye-icon{
+  color: $color-light-grey;
+  font-size: 1.5em;
+  position: relative;
+  left: -20%;
+  border-left: 1px solid $color-light-grey;
+  padding: 5px;
+}
+
+.eye-icon:hover{
+  cursor: pointer;
+}

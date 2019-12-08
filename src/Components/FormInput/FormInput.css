@@ -1,0 +1,30 @@
+.form-input {
+  border-radius: 5px;
+  padding: 5px 8px;
+  background: #251A3C;
+  color: #F2F2F2;
+  border: 1px solid #F2F2F2;
+  line-height: 1.5;
+  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
+          box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.form-input.password {
+  padding-right: 45px;
+}
+
+.eye-icon {
+  color: #F2F2F2;
+  font-size: 1.5em;
+  position: relative;
+  left: -20%;
+  border-left: 1px solid #F2F2F2;
+  padding: 5px;
+}
+
+.eye-icon:hover {
+  cursor: pointer;
+}

@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 
 
-import Login from './Components/Login/Login';
+import Login from './Components/Guest/Guest';
 
 class App extends Component {
   state = {
@@ -12,7 +12,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    
+
   }
   componentDidUpdate = () => {
     
