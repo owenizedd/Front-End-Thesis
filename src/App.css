@@ -1,0 +1,18 @@
+* {
+  color: #F2F2F2;
+}
+
+.link-style-green {
+  background: -webkit-gradient(linear, left top, right top, from(#86AF72), to(#6897BA));
+  background: linear-gradient(to right, #86AF72, #6897BA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.link-style-green:hover {
+  cursor: pointer;
+}
+
+.shadowed-text {
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
+}

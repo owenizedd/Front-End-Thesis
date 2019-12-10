@@ -19,10 +19,12 @@
 .eye-icon {
   color: #F2F2F2;
   font-size: 1.5em;
-  position: relative;
-  left: -20%;
+  position: absolute;
+  left: 85%;
   border-left: 1px solid #F2F2F2;
   padding: 5px;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
 }
 
 .eye-icon:hover {

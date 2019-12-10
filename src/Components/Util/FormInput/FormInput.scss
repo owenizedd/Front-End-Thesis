@@ -1,4 +1,4 @@
-@import '../Variables.scss';
+@import '../../Variables.scss';
 
 
 .form-input{
@@ -22,10 +22,12 @@
 .eye-icon{
   color: $color-light-grey;
   font-size: 1.5em;
-  position: relative;
-  left: -20%;
+  position: absolute;
+  
+  left: 85%;
   border-left: 1px solid $color-light-grey;
   padding: 5px;
+  transition: 300ms all;
 }
 
 .eye-icon:hover{

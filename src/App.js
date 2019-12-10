@@ -3,12 +3,13 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
 
 
-import Login from './Components/Guest/Guest';
+import Guest from './Components/Guest/Guest';
 
 class App extends Component {
   state = {
     sidebar: [],
-    isLoggedIn: false
+    isLoggedIn: false,
+    token: ''
   }
   
   componentDidMount = () => {
@@ -26,7 +27,8 @@ class App extends Component {
         
         <Router>
           <Switch>
-            <Route path="/" exact component={Login}/>
+            {!this.state.isLoggedIn && <Route path="/" exact component={Guest}/>}
+            
           </Switch>
         </Router>
       </div>

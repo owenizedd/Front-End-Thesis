@@ -19,12 +19,13 @@
   height: 100vh;
 }
 
-.form-container > .form-control:not(first-child) {
+
+form > .form-control:not(first-child) {
   margin-top: 10px;
 }
 
 .form-control{
-  width: 13vw;
+  width: 17.5vw;
 
 }
 .form-input{

@@ -32,7 +32,7 @@ export default class FormInput extends React.Component{
   const {value, type, onChange, name, placeholder, hidden} = this.props;
   
   if (hidden){
-    var style={display: 'flex'}
+    var style={display: 'flex', position: 'relative'}
   }
   return (
     <div className={`form-control ${type}`} style={style}>
