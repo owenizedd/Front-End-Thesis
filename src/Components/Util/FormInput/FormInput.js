@@ -36,7 +36,7 @@ export default class FormInput extends React.Component{
   }
   return (
     <div className={`form-control ${type}`} style={style}>
-      <input className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />
+      <input required={true} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />
       {hidden && <i className={`fa ${this.state.iconName} eye-icon`} onClick={this.handleClick}></i>}
     </div>
   )

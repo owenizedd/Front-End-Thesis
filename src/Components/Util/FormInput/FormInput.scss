@@ -13,7 +13,13 @@
   box-sizing: border-box;
   
 }
+.form-input:invalid{
+  box-shadow: 0px 3px 5px $color-button-danger;
+}
 
+.form-input:valid{
+  box-shadow: 0px 3px 5px $color-button-success;
+}
 .form-input.password{
   padding-right: 45px;
   
