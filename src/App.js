@@ -6,10 +6,11 @@ import Cookie from 'js-cookie';
 import Guest from './Components/Guest/Guest';
 import Dashboard from './Components/Dashboard/Dashboard';
 import {getSession} from './Components/Util/common';
+import Sidebar from './Components/Sidebar/Sidebar';
 
 class App extends Component {
   state = {
-    sidebar: [],
+    sidebarIndex: 0,
     isLoggedIn: false,
     token: ''
   }
@@ -24,21 +25,26 @@ class App extends Component {
   LoggedIn = () =>{
     this.setState({isLoggedIn: true});
   }
+  handleClickSidebar = (sidebarIndex) => {
+    this.setState({sidebarIndex: sidebarIndex});
+
+  }
   render(){
     //sidebar
 
     return (
-      <div id="app">
-        {/* {this.state.isLoggedIn && <Sidebar/>} */}
-        
-        <Router>
-          <Switch>
-            <Route path="/" exact render={() => (
-              getSession() && this.state.isLoggedIn ?  <Dashboard/> : <Guest LoggedIn={this.LoggedIn} />
-            )}/>
-          </Switch>
-        </Router>
-      </div>
+      <Router>
+        <div id="app">
+          {getSession() && <Sidebar sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>}
+          
+              <Switch>
+                <Route path="/" exact render={() => (
+                  getSession() ?  <Dashboard/> : <Guest LoggedIn={this.LoggedIn} />
+                  )}/>
+    
+              </Switch>
+        </div>
+      </Router>
     );
   }
 

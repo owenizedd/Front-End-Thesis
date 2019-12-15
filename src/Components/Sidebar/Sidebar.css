@@ -1,0 +1,97 @@
+.sidebar-container .fa {
+  color: #E69A8D;
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+}
+
+.sidebar-links {
+  padding: 0;
+}
+
+.sidebar-links a > li {
+  padding-left: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.sidebar-link.active > i {
+  color: #F2F2F2;
+}
+
+.sidebar-link.active {
+  background: #E69A8D;
+}
+
+.sidebar-link.active::before {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 47px;
+  margin-top: -10px;
+  background: -webkit-gradient(linear, left top, right top, from(#AD3333), to(#C2513E));
+  background: linear-gradient(to right, #AD3333, #C2513E);
+  position: absolute;
+  left: 0px;
+}
+
+.sidebar-link > li {
+  vertical-align: center;
+}
+
+/*
+    <div className="sidebar-container">
+      <div className="sidebar-header">
+        <img className="logo" src="assets/images/logo_svg.svg" width="50px" height="auto"/>
+        <h3>App Name</h3>
+      </div>
+      <ul className="sidebar-links">
+        {sidebarArr}
+      </ul>
+    </div>    
+*/
+.sidebar-container {
+  width: 20vw;
+  height: 100vh;
+  background: #5F4B8B;
+  position: fixed;
+  top: 0;
+  left: 0;
+  -webkit-box-shadow: 5px 0px 3px rgba(0, 0, 0, 0.2);
+          box-shadow: 5px 0px 3px rgba(0, 0, 0, 0.2);
+  font-size: 1.2em;
+}
+
+.sidebar-links * {
+  list-style: none;
+  text-decoration: none;
+  padding: 3px 0px;
+  vertical-align: middle;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+  outline: none;
+}
+
+.sidebar-links > a > .sidebar-link:hover:not(.active) {
+  background: #35120c;
+}
+
+.sidebar-header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-bottom: 2px solid #E69A8D;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 15px;
+  padding-left: 0px;
+}
+
+body {
+  background: #31254B;
+  padding-left: 21vw;
+}

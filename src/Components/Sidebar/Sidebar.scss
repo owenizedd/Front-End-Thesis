@@ -1,0 +1,85 @@
+@import '../Variables.scss';
+
+.sidebar-container .fa{
+  color: $color-orange;
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+}
+.sidebar-links{
+  padding: 0;
+}
+.sidebar-links a > li{
+  padding-left: 35px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.sidebar-link.active > i{
+  color: $color-light-grey;
+  
+}
+.sidebar-link.active{
+  background: $color-orange;
+}
+.sidebar-link.active::before{
+  content: '';
+  display: block;
+  width: 7px;
+  height: 47px;
+  margin-top: -10px;
+  background: $gradient-button-danger;
+  position: absolute;
+  left: 0px;
+}
+.sidebar-link > li{
+  
+  vertical-align: center;
+}
+/*
+    <div className="sidebar-container">
+      <div className="sidebar-header">
+        <img className="logo" src="assets/images/logo_svg.svg" width="50px" height="auto"/>
+        <h3>App Name</h3>
+      </div>
+      <ul className="sidebar-links">
+        {sidebarArr}
+      </ul>
+    </div>    
+*/
+
+.sidebar-container{
+  width: 20vw;
+  height: 100vh;
+  background: $color-bg-light;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 5px 0px 3px rgba(0,0,0,0.2);
+  font-size: 1.2em;
+}
+
+.sidebar-links *{
+  list-style: none;
+  text-decoration: none;
+  padding: 3px 0px;
+  vertical-align: middle;
+  transition: 300ms all;
+  outline: none;
+}
+.sidebar-links > a > .sidebar-link:hover:not(.active) {
+  background: darken($color-orange, 60%);
+}
+
+.sidebar-header{
+  display: flex;
+  border-bottom: 2px solid $color-orange;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  padding-left: 0px;
+}
+
+body{
+  background: $color-bg-dark;
+  padding-left: 21vw;
+}

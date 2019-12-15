@@ -117,9 +117,11 @@ export default class Guest extends React.Component{
   }
   componentDidUpdate(){
     // console.log(this.state)
+    console.log("guest has been updated");
   }
 
   render(){
+    console.log("guest is rendering..");
     var guest = <Login formRef={this.formRef} navToReset={this.navToReset} navToRegister={this.navToRegister} handleChange={this.handleChange} handleClickLogin={this.handleClickLogin}/>;
     if (this.state.Register){
       guest = <Register formRef={this.formRef} navToLogin={this.navToLogin} handleClickRegister={this.handleClickRegister} handleChange={this.handleChange}/>
@@ -141,7 +143,7 @@ export default class Guest extends React.Component{
 function Login({formRef, handleChange, handleClickLogin, navToRegister, navToReset}){
   return(
     <div className="form-container">
-      <img className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
@@ -156,7 +158,7 @@ function Login({formRef, handleChange, handleClickLogin, navToRegister, navToRes
 function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
   return(
     <div className="form-container">
-      <img className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="logo" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <ButtonPrimary text="RESET PASSWORD" onClick={handleClickForgot}/>
@@ -170,7 +172,7 @@ function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
 function Register({formRef, handleChange, handleClickRegister, navToLogin}){
   return(
     <div className="form-container">
-      <img className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput  type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput  hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
