@@ -8,7 +8,7 @@ $color-bg-darker: #251A3C;
 $color-light-grey: #F2F2F2;
 $color-orange: #E69A8D;
 $color-disabled-text: #828282;
-
+$color-green: #86AF72;
 //gradient button
 $gradient-button-primary: linear-gradient(to right, #E16565, #E69A8D);
 $gradient-button-danger: linear-gradient(to right, #AD3333, #C2513E);
@@ -18,3 +18,8 @@ $gradient-button-success: linear-gradient(to right, #86AF72, #6897BA);
 $gradient-bg-row-default: linear-gradient(to right, #5F4B8B, #4B4E8B);
 $gradient-bg-row-orange: linear-gradient(to right, #AF4848, #773D34);
 $gradient-bg-row-green: linear-gradient(to right, #5D8246, #2B513F);
+
+
+//font-size
+
+$title: 2em;

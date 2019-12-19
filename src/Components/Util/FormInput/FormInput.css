@@ -5,11 +5,22 @@
   color: #F2F2F2;
   border: 1px solid #F2F2F2;
   line-height: 1.5;
-  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
-          box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.7);
+  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.5);
   letter-spacing: 2px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  outline: none;
+}
+
+.form-input:invalid {
+  -webkit-box-shadow: 0px 3px 5px rgba(95, 32, 21, 0.3);
+          box-shadow: 0px 3px 5px rgba(95, 32, 21, 0.3);
+}
+
+.form-input:valid {
+  -webkit-box-shadow: 0px 3px 5px rgba(134, 175, 114, 0.3);
+          box-shadow: 0px 3px 5px rgba(134, 175, 114, 0.3);
 }
 
 .form-input.password {

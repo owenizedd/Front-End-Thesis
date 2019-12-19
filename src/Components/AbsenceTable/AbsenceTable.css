@@ -1,0 +1,115 @@
+.table-head {
+  padding: 0px 10px;
+  text-align: center;
+  width: 100px;
+}
+
+.absence-row {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-preferred-size: 0;
+      flex-basis: 0;
+  text-align: center;
+  padding: 7px 15px;
+  border-radius: 20px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.table-data {
+  margin: 0 15px;
+  -webkit-box-sizing: border-box !important;
+          box-sizing: border-box !important;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.table-head:nth-child(1) {
+  width: 80px;
+}
+
+.table-data:nth-child(1) {
+  width: 80px;
+  height: 80px;
+}
+
+.table-head:nth-child(2) {
+  width: 80px;
+}
+
+.table-data:nth-child(2) {
+  margin-left: 5px;
+  width: 100px;
+}
+
+.table-head:nth-child(3) {
+  width: 90px;
+}
+
+.table-data:nth-child(3) {
+  width: 50px;
+}
+
+.table-data:nth-child(4) {
+  width: 100px;
+  margin-left: 25px;
+}
+
+.table-head:nth-child(5) {
+  margin-left: 10px;
+}
+
+.table-data:nth-child(5) {
+  width: 100px;
+  margin-left: 15px;
+}
+
+.table-data:nth-child(6) {
+  width: 80px;
+}
+
+.table-head:nth-child(6) {
+  width: 70px;
+  margin-left: 15px;
+}
+
+.table-head:nth-child(7) {
+  width: 80px;
+  margin-left: 5px;
+}
+
+.table-data:nth-child(7) {
+  width: 60px;
+}
+
+.table-head:nth-child(8) {
+  width: 80px;
+  margin-left: 35px;
+}
+
+.table-data:nth-child(8) {
+  width: 150px;
+}
+
+.row-normal {
+  background: -webkit-gradient(linear, left top, right top, from(#5F4B8B), to(#4B4E8B));
+  background: linear-gradient(to right, #5F4B8B, #4B4E8B);
+}
+
+.row-orange {
+  background: -webkit-gradient(linear, left top, right top, from(#AF4848), to(#773D34));
+  background: linear-gradient(to right, #AF4848, #773D34);
+}
+
+.row-green {
+  background: -webkit-gradient(linear, left top, right top, from(#5D8246), to(#2B513F));
+  background: linear-gradient(to right, #5D8246, #2B513F);
+}

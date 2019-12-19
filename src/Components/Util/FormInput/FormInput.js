@@ -29,14 +29,19 @@ export default class FormInput extends React.Component{
   
   render(){ 
   
-  const {value, type, onChange, name, placeholder, hidden} = this.props;
+  const {value, type, onChange, name, placeholder, hidden, disabled, required, autoFocus} = this.props;
   
-  if (hidden){
-    var style={display: 'flex', position: 'relative'}
+  if (hidden) var style={display: 'flex', position: 'relative'}
+  
+  let form = <input autoFocus={autoFocus} required={required ? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />;
+  
+  if (type === "textarea"){
+    form = <textarea autoFocus={autoFocus} required={required? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={type} value={value} placeholder={placeholder} rows="2" onChange={(evt) => onChange(evt)}>{value}</textarea>
   }
+
   return (
     <div className={`form-control ${type}`} style={style}>
-      <input required={true} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />
+      {form}
       {hidden && <i className={`fa ${this.state.iconName} eye-icon`} onClick={this.handleClick}></i>}
     </div>
   )

@@ -16,3 +16,126 @@
 .shadowed-text {
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.8);
 }
+
+#app.logged-in {
+  background: #31254B;
+  padding-left: 21vw;
+}
+
+.app-container {
+  font-weight: normal;
+}
+
+.header {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.container-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.container-col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.container-ctr {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.spc-ev {
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.ta-ctr {
+  text-align: center;
+}
+
+.ml-15 {
+  margin-left: 15px;
+}
+
+.mr-15 {
+  margin-right: 15px;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+.mr-auto {
+  margin-right: auto !important;
+}
+
+input[disabled] {
+  color: #828282;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  margin: 0 5px;
+  display: inline;
+}
+
+input[type="radio"]:before {
+  content: '';
+  display: block;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  background: #31254B;
+  position: relative;
+  z-index: 4;
+  top: -1px;
+  left: -1px;
+  border: 1px solid #E69A8D;
+}
+
+input[type="radio"]:checked:after {
+  content: '';
+  display: block;
+  position: relative;
+  z-index: 5;
+  border-radius: 50%;
+  top: -13.3px;
+  left: 3.8px;
+  width: 7.5px;
+  height: 7.5px;
+  border: 0px solid black;
+  background: #31254B;
+}
+
+input[type="radio"]:checked:before {
+  background: #E69A8D;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}

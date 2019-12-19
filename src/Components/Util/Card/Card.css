@@ -1,0 +1,17 @@
+.card {
+  background: #5F4B8B;
+  border-radius: 15px;
+  text-align: center;
+  padding: 10px 30px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.card-title {
+  font-weight: normal;
+  font-size: 2em;
+}
+
+.m-5 {
+  margin: 15px;
+}

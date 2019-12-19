@@ -1,0 +1,48 @@
+.company-settings-container {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.form-wrapper > label {
+  letter-spacing: 2px;
+  font-size: 0.96em;
+}
+
+.form-wrapper > .form-control {
+  margin: 10px 0;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.container-work-day {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  margin-top: 10px;
+}
+
+.form-work-day > .form-control {
+  width: 30%;
+}
+
+.form-work-day .form-control > input {
+  width: 100%;
+}
+
+.form-wrapper:nth-child(even) {
+  margin-left: auto;
+}
+
+.form-wrapper {
+  width: 45%;
+}
+
+.radio-photo {
+  width: 15px;
+  height: 15px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
