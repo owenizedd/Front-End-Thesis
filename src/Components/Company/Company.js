@@ -2,7 +2,7 @@ import React from 'react';
 import './Company.css';
 import FormInput from '../Util/FormInput/FormInput';
 import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
-import { convertToForm } from '../Util/common';
+import { convertToForm, saveSidebarState } from '../Util/common';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Cookie from 'js-cookie';
 import Modal from '../Util/ModalAndLogin/Modal';
@@ -67,10 +67,12 @@ export default class Company extends React.Component{
     }).then(res=> res.json())
       .then(data=> {
         if (data.message.toLowerCase().indexOf("not allowed") !== -1) this.setState({info: data.message});
+        else this.setState({info: "Company settings successfully updated."});
       });
 
   }
-
+  componentDidUpdate(){
+  }
   componentDidMount = () => {
     this.setState({isLoading: true});
     fetch(`${this.api}/api/company`, {
@@ -92,7 +94,6 @@ export default class Company extends React.Component{
       // allow_nebeng: false
       // created_on: "2019-12-11T12:58:36.031Z"
       // updated_on: null
-      console.log(data);
       if (data && data.data){
         data = data.data;
         this.setState({
@@ -106,11 +107,11 @@ export default class Company extends React.Component{
           must_photo: data.must_photo ? "Yes" : "No",
           allow_nebeng: data.allow_nebeng ? "Yes" : "No"
         })
-        if (data.start_time && data.end_time){
-          for(let i = 0; i < data.start_time.length; i++){
+        if (data.company_work_hours){
+          for(let i = 0; i < data.company_work_hours.length; i++){
             this.setState({
-              ['start_work_day_' + (i+1)]: '' + data.start_time[i],
-              ['end_work_day_' + (i+1)]: '' + data.end_time[i],
+              ['start_work_day_' + data.company_work_hours[i].day]: data.company_work_hours[i].start_time.slice(0,5),
+              ['end_work_day_' + data.company_work_hours[i].day]: data.company_work_hours[i].end_time.slice(0,5),
             })
           }
         }
@@ -124,7 +125,8 @@ export default class Company extends React.Component{
         setTimeout(function(){
           Cookie.remove('JWT_token');
           //redirect to home
-          this.props.history.push('/');
+          saveSidebarState(0);
+          window.location="/";
 
         }, 2000);
         
@@ -159,16 +161,16 @@ export default class Company extends React.Component{
           </Modal>
         }
         {this.state.isLoading && <Loading/>}
-        <div className="company-settings-container">
+        <div className="wrapper-form">
           <h1 className="ta-ctr">Company Settings</h1>
           <form className="container-row company-form" ref="companyForm" onSubmit={(e) => this.handleSubmit(e)}>
             <div className="form-wrapper">
               <label htmlFor="username">Username</label>
-              <FormInput value="ryanowen" type="text" onChange={this.handleChange} disabled name="username" value={this.state.username}/>
+              <FormInput type="text" onChange={this.handleChange} disabled name="username" value={this.state.username}/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="company_name">Name</label>
-              <FormInput autofocus required type="text" onChange={this.handleChange} name="company_name" value={this.state.company_name}/>
+              <FormInput autoFocus required type="text" onChange={this.handleChange} name="company_name" value={this.state.company_name}/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="address">Company Address</label>
@@ -181,57 +183,57 @@ export default class Company extends React.Component{
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Monday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_1"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_1} name="start_work_day_1"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_1"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_1} name="end_work_day_1"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Tuesday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_2"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_2} name="start_work_day_2"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_2"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_2} name="end_work_day_2"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Wednesday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_3"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_3} name="start_work_day_3"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_3"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_3} name="end_work_day_3"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Thursday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_4"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_4} name="start_work_day_4"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_4"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_4} name="end_work_day_4"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Friday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_5"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_5} name="start_work_day_5"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_5"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_5} name="end_work_day_5"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Saturday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_6"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_6} name="start_work_day_6"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_6"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_6 } name="end_work_day_6"/>
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
               <label htmlFor="email">Monday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
-                <FormInput required type="text" onChange={this.handleChange} name="start_work_day_7"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_7} name="start_work_day_7"/>
                 <span className="ml-15 mr-15">to</span>
-                <FormInput required type="text" onChange={this.handleChange} name="end_work_day_7"/>
+                <FormInput required type="text" onChange={this.handleChange} value={this.state.end_work_day_7} name="end_work_day_7"/>
               </div>
             </div>
             <div className="form-wrapper mt-15">

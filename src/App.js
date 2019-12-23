@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 // import Cookie from 'js-cookie';
 
@@ -9,6 +9,7 @@ import {getSession, saveSidebarState, getSidebarState} from './Components/Util/c
 import Sidebar from './Components/Sidebar/Sidebar';
 import Company from './Components/Company/Company';
 import Employees from './Components/Employees/Employees';
+import AddEmployee from './Components/Employees/AddEmployee/AddEmployee';
 
 class App extends Component {
   state = {
@@ -18,16 +19,15 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-  
-    this.setState({ sidebarIndex: getSidebarState() })
-    if (getSession()) this.LoggedIn();
+    this.setState({ sidebarIndex: getSidebarState() }) 
+    if (getSession()) this.toggleLoggedIn();
   }
   componentDidUpdate = () => {
     
   }
   
-  LoggedIn = () =>{
-    this.setState({isLoggedIn: true});
+  toggleLoggedIn = () => {
+    this.setState({isLoggedIn: !this.state.isLoggedIn});
   }
   handleClickSidebar = (sidebarIndex) => {
     saveSidebarState(sidebarIndex);
@@ -46,22 +46,24 @@ class App extends Component {
           
               <Switch>
                 <Route path="/" exact render={() => (
-                  getSession() ?  <Dashboard/> : <Guest LoggedIn={this.LoggedIn} />
+                  getSession() ?  <Dashboard/> : <Guest toggleLoggedIn={this.toggleLoggedIn} />
                 )}/>
-                <Route path="/company" exact render={() => <Company/>}/>
-                <Route path="/employees" exact render={() => <Employees/>}/>
+                <Route path="/company" exact render={() => (
+                  getSession() ? <Company/> : <Redirect to="/"/>
+                )}/>
+                <Route path="/employees" exact render={() => (
+                  getSession() ? <Employees/> : <Redirect to="/"/>
+                )}/>
+                <Route path="/employees/add" exact render={() => (
+                  getSession() ? <AddEmployee/> : <Redirect to="/"/>
+                )}/>
+                <Route path="/employees/edit/:id" exact render={() => (
+                  <h1>Edit Employee</h1>
+                )}/>
               </Switch>
         </div>
       </Router>
     );
-  }
-
-  navigateToLogin = () =>{
-    let enterApp = this.state.enterApp;
-    enterApp.isLogin = true;
-    this.setState({
-      enterApp: enterApp
-    })
   }
 }
 

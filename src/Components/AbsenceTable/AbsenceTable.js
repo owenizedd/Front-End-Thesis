@@ -109,6 +109,7 @@ const Rows = ({rows, amountOfRows}) => {
     if (idx < amountOfRows){
       return <Row row={row} key={row.id}/>
     }
+    else return null;
   }) 
   return(
     <>

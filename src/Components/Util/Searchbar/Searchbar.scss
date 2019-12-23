@@ -1,1 +1,44 @@
 @import '../../Variables.scss';
+
+.searchbar{
+  width: 30%;
+  display: flex;
+
+}
+.searchbar input{
+  background: $color-bg-darker;
+  color: $color-disabled-text;
+  border: 0;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 1.3em;
+  width: 100%;
+  letter-spacing: 2px;
+  padding-right: 35px;
+  outline: none;
+  transition: 300ms all;
+
+  + i{
+    transition: 300ms all;
+  }
+
+  &:focus, &:focus + i {
+    color: $color-light-grey;
+    transition: 300ms all;
+  }
+
+  &::placeholder{
+    letter-spacing: initial;
+    font-size: 0.75em;
+  }
+
+}
+
+
+.searchbar i{
+  position: relative;
+  left: -30px;
+  top: 8px;
+  font-size: 1.3em;
+  color: $color-disabled-text; 
+}

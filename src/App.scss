@@ -7,6 +7,7 @@
 
 .link-style-green{
   background: $gradient-button-success;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   
@@ -50,6 +51,44 @@
   align-items: center;
 }
 
+.container-header{
+  justify-content: flex-start;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+
+
+
+.form-wrapper:nth-child(even){
+  margin-left: auto;
+}
+.form-wrapper{
+  width: 45%;
+}
+
+.wrapper-form{
+  margin: 0 auto;
+  width: 60%;
+}
+
+
+.form-wrapper > label{
+  letter-spacing: 2px;
+  font-size: 0.96em;
+}
+
+
+.form-wrapper > .form-control{
+  margin: 10px 0;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.form-control.date input{
+  width: 21.4vw;
+}
+
 .spc-ev{
   justify-content: space-evenly;
 }
@@ -80,6 +119,7 @@
 input[disabled]{
   color: $color-disabled-text;
 }
+
 
 //custom Radio
 

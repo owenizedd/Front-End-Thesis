@@ -12,6 +12,8 @@
   border: 0;
   -webkit-box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.7);
           box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.7);
+  outline: none;
+  position: relative;
 }
 
 .button-primary:hover {
@@ -21,6 +23,8 @@
 .button-primary:active {
   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7);
           box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.7);
-  -webkit-transition: 300ms all;
-  transition: 300ms all;
+  top: 1px;
+  left: 1px;
+  -webkit-transition: 100ms all;
+  transition: 100ms all;
 }

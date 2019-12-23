@@ -5,16 +5,16 @@ import Card from '../Util/Card/Card';
 import AbsenceTable from '../AbsenceTable/AbsenceTable';
 import Cookie from 'js-cookie';
 import Loading from '../Util/ModalAndLogin/Loading';
-import Modal from '../Util/ModalAndLogin/Modal';
 
 
 export default class Dashboard extends React.Component{
 
   state={
-    amountOfCompany: null,
     amountOfEmployee: null,
     amountOfOffice: null,
     isLoading: false,
+    company_name: null,
+    address: '-',
     tableRows: []
   }
   
@@ -44,8 +44,33 @@ export default class Dashboard extends React.Component{
     .then(data => {
       this.setState({
         amountOfEmployee: data.data.length,
-        isLoading: false
+        
       })
+    })
+
+    await fetch(`${api}/api/company`, {
+      headers: {
+        "authorization": Cookie.get("JWT_token")
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data.data)
+      if (data.data){
+        let address = data.data.address == null ? 'JL. Medan Binjai Km 10,5' : data.data.address;
+        if (address.length > 23) address = address.slice(0, 20) + '...';
+        this.setState({
+          company_name: data.data.company_name,
+          address: address,
+          isLoading: false,
+        })
+      }
+      else{
+        this.setState({
+          address: "Error while fetching information",
+          isLoading: false,
+        })
+      }
     })
 
     //fetch absence data and show 
@@ -57,7 +82,8 @@ export default class Dashboard extends React.Component{
       <>
         {this.state.isLoading && <Loading/>}
         <Summary 
-          amountOfCompany={this.state.amountOfCompany} 
+          companyName={this.state.company_name}
+          address={this.state.address} 
           amountOfEmployee={this.state.amountOfEmployee}
           amountOfOffice={this.state.amountOfOffice}
         />
@@ -68,7 +94,7 @@ export default class Dashboard extends React.Component{
   }
 }
 
-const Summary = ({amountOfCompany, amountOfEmployee, amountOfOffice}) => {
+const Summary = ({companyName, address, amountOfEmployee, amountOfOffice}) => {
   
   return(
     <div className="summary container-column">
@@ -76,7 +102,8 @@ const Summary = ({amountOfCompany, amountOfEmployee, amountOfOffice}) => {
       <div className="container-row spc-ev">
         <Card width="250px" height="200px" className="m-5">
           <h3 className="card-title">Company</h3>
-          <p className="header">{amountOfCompany}</p>
+          <h2 >{companyName}</h2>
+          <p>{address}</p>
         </Card>
         <Card width="250px" height="200px" className="m-5">
           <h3 className="card-title">Employee</h3>

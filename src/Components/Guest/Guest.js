@@ -6,7 +6,7 @@ import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
 
 import './Guest.css';
 
-import {convertToForm} from '../Util/common';
+import {convertToForm, saveSidebarState} from '../Util/common';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Modal from '../Util/ModalAndLogin/Modal';
 //username
@@ -20,6 +20,9 @@ import Modal from '../Util/ModalAndLogin/Modal';
 export default class Guest extends React.Component{
   api = 'http://157.230.43.112:3000';
 
+  constructor(){
+    saveSidebarState(0);
+  }
   
   state={
     isLoading: false,
@@ -54,32 +57,33 @@ export default class Guest extends React.Component{
           'Content-Type': 'application/x-www-form-urlencoded'
         }
       })
-      .then(res => {
+      .then(res =>  {
+        console.log(res);
         return res.json();
       })
       .then(data => {
         //Bearer token
-        // console.log(data);
+        console.log(data);
         that.setState({isLoading: false});
         
         //if credential is correct
         if (data.data){
           //0.5 == half of a day
           Cookie.set('JWT_token', `Bearer ${data.data}`, { expires: 0.5});
-          props.LoggedIn();
+          props.toggleLoggedIn();
         }
         else{
           this.setState({ info: 'Wrong Credential. Please try again.'});
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => {this.setState({ isLoading: false, info: err.toString() + " Please check your connection or use different connection."})})
     }
     else{
       this.setState({ info: 'Please fill the correct username and password.'});
     }
   }
 
-  handleClickregister = () => {
+  handleClickRegister = () => {
     const that = this;
     if (this.state.email && this.state.password && this.state.username){
       console.log('trying to register...');
@@ -140,7 +144,7 @@ export default class Guest extends React.Component{
   render(){
     var guest = <Login formRef={this.formRef} navToReset={this.navToReset} navToRegister={this.navToRegister} handleChange={this.handleChange} handleClicklogin={this.handleClicklogin}/>;
     if (this.state.register){
-      guest = <Register formRef={this.formRef} navToLogin={this.navToLogin} handleClickregister={this.handleClickregister} handleChange={this.handleChange}/>
+      guest = <Register formRef={this.formRef} navToLogin={this.navToLogin} handleClickRegister={this.handleClickRegister} handleChange={this.handleChange}/>
     }
     if (this.state.forgot){
       guest = <ForgotPassword formRef={this.formRef} navToLogin={this.navToLogin} handleClickForgot={this.handleClickForgot} handleChange={this.handleChange}/>
@@ -150,13 +154,13 @@ export default class Guest extends React.Component{
         <Particles className="particle-bg"/>
         {this.state.isLoading && <Loading/>}
         {this.state.info && 
-        
           <Modal onClick={() => {}}>
             <div className="container-col container-ctr" >
               <h1>{this.state.info}</h1>
               <ButtonPrimary onClick={(e) => {this.setState({info: ''}); e.stopPropagation(); }} text="CLOSE"/>
             </div>
-          </Modal>}
+          </Modal>
+        }
         {guest}
       </div>
     )
@@ -169,7 +173,7 @@ function Login({formRef, handleChange, handleClicklogin, navToRegister, navToRes
     <div className="form-container">
       <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput required type="text" name="username" onChange={handleChange} placeholder="Username"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
         <ButtonPrimary text="LOGIN" onClick={handleClicklogin}/>
         <p className="shadowed-text">Forgot your password? <span className="link-style-green" onClick={navToReset}>Reset it here</span></p>
@@ -184,7 +188,7 @@ function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
     <div className="form-container">
       <img alt="logo" className="logo" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput required type="text" name="username" onChange={handleChange} placeholder="Username"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <ButtonPrimary text="RESET PASSWORD" onClick={handleClickForgot}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
@@ -193,18 +197,18 @@ function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
 }
 
 //username - password - email = required
-function Register({formRef, handleChange, handleClickregister, navToLogin}){
+function Register({formRef, handleChange, handleClickRegister, navToLogin}){
   return(
     <div className="form-container">
       <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput required type="text" name="username" onChange={handleChange} placeholder="Username"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
         <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email"/>
         <FormInput  type="text" name="phone_number" onChange={handleChange} placeholder="Phone Number"/>
         <FormInput  type="text" name="company_name" onChange={handleChange} placeholder="Company Name"/>
         <FormInput  type="text" name="company_address" onChange={handleChange} placeholder="Company Address"/>
-        <ButtonPrimary text="REGISTER" onClick={handleClickregister}/>
+        <ButtonPrimary text="REGISTER" onClick={handleClickRegister}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
     </div>

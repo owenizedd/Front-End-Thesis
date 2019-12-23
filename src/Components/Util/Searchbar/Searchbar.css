@@ -1,1 +1,60 @@
-/* No CSS */
+.searchbar {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.searchbar input {
+  background: #251A3C;
+  color: #828282;
+  border: 0;
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 1.3em;
+  width: 100%;
+  letter-spacing: 2px;
+  padding-right: 35px;
+  outline: none;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.searchbar input + i {
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.searchbar input:focus, .searchbar input:focus + i {
+  color: #F2F2F2;
+  -webkit-transition: 300ms all;
+  transition: 300ms all;
+}
+
+.searchbar input::-webkit-input-placeholder {
+  letter-spacing: initial;
+  font-size: 0.75em;
+}
+
+.searchbar input:-ms-input-placeholder {
+  letter-spacing: initial;
+  font-size: 0.75em;
+}
+
+.searchbar input::-ms-input-placeholder {
+  letter-spacing: initial;
+  font-size: 0.75em;
+}
+
+.searchbar input::placeholder {
+  letter-spacing: initial;
+  font-size: 0.75em;
+}
+
+.searchbar i {
+  position: relative;
+  left: -30px;
+  top: 8px;
+  font-size: 1.3em;
+  color: #828282;
+}

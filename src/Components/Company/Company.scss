@@ -1,40 +1,17 @@
 @import '../Variables.scss';
 
-.company-settings-container{
-  margin: 0 auto;
-  width: 60%;
-}
-
-
-.form-wrapper > label{
-  letter-spacing: 2px;
-  font-size: 0.96em;
-}
-
-
-.form-wrapper > .form-control{
-  margin: 10px 0;
-  margin-bottom: 25px;
-  width: 100%;
-}
-.container-work-day{
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  margin-top: 10px;
-
-}
-
 .form-work-day > .form-control{
   width: 30%;
 }
 .form-work-day .form-control > input{
   width: 100%;
 }
-.form-wrapper:nth-child(even){
-  margin-left: auto;
-}
-.form-wrapper{
-  width: 45%;
+
+.container-work-day{
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin-top: 10px;
+
 }
 
 .radio-photo{

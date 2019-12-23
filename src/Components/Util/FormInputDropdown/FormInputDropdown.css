@@ -1,0 +1,27 @@
+.form-input-select-container > div[class*="menu"] {
+  background: #251A3C;
+}
+
+.form-input-select__control {
+  background: #251A3C !important;
+}
+
+.form-input-select__single-value {
+  color: #F2F2F2 !important;
+}
+
+.form-input-select-container {
+  width: 100%;
+}
+
+.form-input-select__menu > div > *:hover {
+  background: #5f2015 !important;
+}
+
+.form-input-select__option--is-selected {
+  background: #E69A8D !important;
+}
+
+.form-input-select__option--is-focused {
+  background: #5f2015 !important;
+}

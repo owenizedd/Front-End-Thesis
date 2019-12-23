@@ -12,6 +12,7 @@ export default class FormInput extends React.Component{
 
 
   handleClick = () => {
+    if (this.props.icon) return;
     const newIconName = this.state.iconName === "fa-eye" ? "fa-eye-slash" : "fa-eye";
     const newType = this.state.type === "password" ? "text" : "password";
     this.setState({
@@ -22,16 +23,17 @@ export default class FormInput extends React.Component{
 
   componentDidMount = () => {
     this.setState({
-      type: this.props.type
+      type: this.props.type,
+      iconName: this.props.icon || this.state.iconName
     })
     
   }
   
   render(){ 
   
-  const {value, type, onChange, name, placeholder, hidden, disabled, required, autoFocus} = this.props;
+  const {value, type, onChange, name, placeholder, hidden, disabled, required, autoFocus, icon} = this.props;
   
-  if (hidden) var style={display: 'flex', position: 'relative'}
+  if (hidden || icon) var style={display: 'flex', position: 'relative'}
   
   let form = <input autoFocus={autoFocus} required={required ? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />;
   
@@ -42,7 +44,7 @@ export default class FormInput extends React.Component{
   return (
     <div className={`form-control ${type}`} style={style}>
       {form}
-      {hidden && <i className={`fa ${this.state.iconName} eye-icon`} onClick={this.handleClick}></i>}
+      { (hidden || icon) && <i className={`fa ${this.state.iconName} eye-icon ${icon && "icon"}`} onClick={this.handleClick}></i>}
     </div>
   )
   }

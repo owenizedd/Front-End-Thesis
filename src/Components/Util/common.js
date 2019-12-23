@@ -6,7 +6,7 @@ import Cookie from 'js-cookie';
 function convertToForm(formElement){
   var ret = new URLSearchParams();
   for (const pair of new FormData(formElement)) {
-    console.log(pair[0], pair[1]);
+
     ret.append(pair[0], pair[1]);
   }
   return ret;

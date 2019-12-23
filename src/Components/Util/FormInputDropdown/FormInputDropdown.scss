@@ -1,0 +1,27 @@
+@import '../../Variables.scss';
+
+.form-input-select-container > div[class*="menu"]{
+  background: $color-bg-darker;
+
+}
+
+.form-input-select__control{
+  background: $color-bg-darker !important;
+}
+.form-input-select__single-value{
+  color: $color-light-grey !important;
+}
+.form-input-select-container{
+  width: 100%;
+}
+
+.form-input-select__menu > div > *:hover{
+  background: darken($color-orange,50%) !important;
+}
+
+.form-input-select__option--is-selected{
+  background: $color-orange !important;  
+}
+.form-input-select__option--is-focused{
+  background: darken($color-orange,50%) !important;
+}

@@ -5,6 +5,7 @@
 .link-style-green {
   background: -webkit-gradient(linear, left top, right top, from(#86AF72), to(#6897BA));
   background: linear-gradient(to right, #86AF72, #6897BA);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -60,6 +61,45 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.container-header {
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+}
+
+.form-wrapper:nth-child(even) {
+  margin-left: auto;
+}
+
+.form-wrapper {
+  width: 45%;
+}
+
+.wrapper-form {
+  margin: 0 auto;
+  width: 60%;
+}
+
+.form-wrapper > label {
+  letter-spacing: 2px;
+  font-size: 0.96em;
+}
+
+.form-wrapper > .form-control {
+  margin: 10px 0;
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.form-control.date input {
+  width: 21.4vw;
 }
 
 .spc-ev {
