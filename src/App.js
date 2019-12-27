@@ -10,6 +10,14 @@ import Sidebar from './Components/Sidebar/Sidebar';
 import Company from './Components/Company/Company';
 import Employees from './Components/Employees/Employees';
 import AddEmployee from './Components/Employees/AddEmployee/AddEmployee';
+import EditEmployee from './Components/Employees/EditEmployee/EditEmployee';
+import Offices from './Components/Offices/Offices';
+import AddOffice from './Components/Offices/AddOffice/AddOffice';
+import EditOffice from './Components/Offices/EditOffice/EditOffice';
+import Roles from './Components/Roles/Roles';
+import Positions from './Components/Positions/Positions';
+import AddPosition from './Components/Positions/AddPosition/AddPosition';
+import EditPosition from './Components/Positions/EditPosition/EditPosition';
 
 class App extends Component {
   state = {
@@ -35,6 +43,7 @@ class App extends Component {
 
   }
   render(){
+    
     //change all background to dark purple + padding left for body
     //so that the content wont get covered by sidebar. 
     this.state.isLoggedIn && require('./logged-in.css');
@@ -42,25 +51,50 @@ class App extends Component {
       <Router>
         
         <div id="app" className="app-container" >
-          {getSession() && <Sidebar sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>}
-          
-              <Switch>
-                <Route path="/" exact render={() => (
-                  getSession() ?  <Dashboard/> : <Guest toggleLoggedIn={this.toggleLoggedIn} />
-                )}/>
-                <Route path="/company" exact render={() => (
-                  getSession() ? <Company/> : <Redirect to="/"/>
-                )}/>
-                <Route path="/employees" exact render={() => (
-                  getSession() ? <Employees/> : <Redirect to="/"/>
-                )}/>
-                <Route path="/employees/add" exact render={() => (
-                  getSession() ? <AddEmployee/> : <Redirect to="/"/>
-                )}/>
-                <Route path="/employees/edit/:id" exact render={() => (
-                  <h1>Edit Employee</h1>
-                )}/>
-              </Switch>
+          {
+            getSession() && <Sidebar sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>
+          }
+          <Switch>
+            <Route path="/" exact render={() => (
+              getSession() ?  <Dashboard/> : <Guest toggleLoggedIn={this.toggleLoggedIn} />
+            )}/>
+            <Route path="/company" exact render={() => (
+              getSession() ? <Company/> : <Redirect to="/"/>
+            )}/>
+            
+            <Route path="/employees" exact render={() => (
+              getSession() ? <Employees/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/employees/add" exact render={() => (
+              getSession() ? <AddEmployee/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/employees/edit/:id" exact component={EditEmployee}/>
+            
+            <Route path="/offices" exact render={() => (
+              getSession() ? <Offices/> : <Redirect to="/"/>
+            )}/>          
+            <Route path="/offices/add" exact render={() => (
+              getSession() ? <AddOffice/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/offices/edit/:id" exact component={EditOffice}/>
+            
+            <Route path="/roles" exact render={() => (
+              getSession() ? <Roles/> : <Redirect to="/"/>
+            )}/>
+
+            <Route path="/positions" exact render={ () => (
+              getSession() ? <Positions/> : <Redirect to="/"/>
+            )}/>
+
+            <Route path="/positions/add" exact render={ ()=> (
+              getSession() ? <AddPosition/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/positions/edit/:id" exact render={ ()=> (
+              getSession() ? <EditPosition/> : <Redirect to="/"/>
+            )}/>
+            {/* When there is no route match to path, render 404. */}
+            <Route path="/" render={() => <h1 className="ta-ctr">404 Not Found.<br/> Unfortunately, we couldn't find the page you're looking for.</h1>} />
+          </Switch>
         </div>
       </Router>
     );

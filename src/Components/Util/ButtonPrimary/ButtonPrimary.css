@@ -28,3 +28,8 @@
   -webkit-transition: 100ms all;
   transition: 100ms all;
 }
+
+.button-danger {
+  background: -webkit-gradient(linear, left top, right top, from(#AD3333), to(#C2513E));
+  background: linear-gradient(to right, #AD3333, #C2513E);
+}

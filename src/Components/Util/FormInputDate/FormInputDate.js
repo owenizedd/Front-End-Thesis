@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FormInputDate.css';
 import ReactDatePicker from 'react-datepicker';
 export default class FormInputDate extends React.Component{

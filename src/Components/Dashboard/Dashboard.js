@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Dashboard.css';
 import Card from '../Util/Card/Card';
-import AbsenceTable from '../AbsenceTable/AbsenceTable';
+import AbsenceTable from '../Util/AbsenceTable/AbsenceTable';
 import Cookie from 'js-cookie';
 import Loading from '../Util/ModalAndLogin/Loading';
 

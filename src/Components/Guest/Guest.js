@@ -20,7 +20,8 @@ import Modal from '../Util/ModalAndLogin/Modal';
 export default class Guest extends React.Component{
   api = 'http://157.230.43.112:3000';
 
-  constructor(){
+  constructor(props){
+    super(props);
     saveSidebarState(0);
   }
   

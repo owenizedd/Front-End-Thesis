@@ -1,1 +1,19 @@
 @import '../../Variables.scss';
+
+
+
+.container-employee-buttons {
+  justify-content: space-between;
+  > div{
+    width: 30%;
+    > button{
+      background: $gradient-button-danger;
+    }
+  }
+}
+
+.wrapper-form.employee .form-wrapper:last-child, .wrapper-form.form-role .form-wrapper:last-child{
+  margin: 23px auto;
+  margin-bottom: 0;
+}
+

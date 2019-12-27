@@ -14,3 +14,15 @@
 .m-5{
   margin: 15px;
 }
+.card-link{
+  text-decoration: none;
+
+  &:hover{
+    color: darken($color-orange, 10%);
+    transition: 300ms all;
+    text-shadow: 1px 1px 3px rgba(0,0,0,.5);
+  }
+}
+.card a{
+  outline: none;
+}

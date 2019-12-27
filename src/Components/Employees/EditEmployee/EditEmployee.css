@@ -1,1 +1,19 @@
-/* No CSS */
+.container-employee-buttons {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.container-employee-buttons > div {
+  width: 30%;
+}
+
+.container-employee-buttons > div > button {
+  background: -webkit-gradient(linear, left top, right top, from(#AD3333), to(#C2513E));
+  background: linear-gradient(to right, #AD3333, #C2513E);
+}
+
+.wrapper-form.employee .form-wrapper:last-child, .wrapper-form.form-role .form-wrapper:last-child {
+  margin: 23px auto;
+  margin-bottom: 0;
+}

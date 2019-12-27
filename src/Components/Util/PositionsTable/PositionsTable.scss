@@ -1,0 +1,24 @@
+.positions-row{
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  flex-basis: 0;
+  text-align: center;
+  padding: 7px 15px;
+  border-radius: 20px;
+  margin: 10px 0px;
+  margin-right: 10px;
+  box-sizing: border-box;
+}
+
+.positions-row .table-data:first-child{
+  height: initial;
+}
+
+.positions-row .table-data{
+  padding: 15px 0px;
+}
+
+.positions-head .table-head:nth-child(2){
+  padding-left: 25px;
+}

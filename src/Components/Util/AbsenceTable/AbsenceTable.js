@@ -1,6 +1,6 @@
 import React from 'react';
 import './AbsenceTable.css';
-import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
+import ButtonPrimary from '../ButtonPrimary/ButtonPrimary';
 export default class AbsenceTable extends React.Component{
   state = {
     isLoading: false
@@ -97,17 +97,19 @@ export default class AbsenceTable extends React.Component{
     return(
       <>
         {!this.props.tableRows.length ? 
-          <Rows rows={rows} amountOfRows={this.props.amountOfRows} /> : <h3 className="ta-ctr">There is no any absence log to show.</h3>
+          <Rows rows={rows} amountOfRows={this.props.amountOfRows} onClick={this.handleClick}/> : <h3 className="ta-ctr">There is no any absence log to show.</h3>
         }
       </>
     );
   }
 }
 
-const Rows = ({rows, amountOfRows}) => {
+const Rows = ({rows, amountOfRows, onClick}) => {
+  if (parseInt(amountOfRows) < 0 || !amountOfRows ) amountOfRows = Number.MAX_VALUE;
+
   const dataRows = rows.map((row, idx) => {
     if (idx < amountOfRows){
-      return <Row row={row} key={row.id}/>
+      return <Row row={row} key={row.id} onClick={onClick}/>
     }
     else return null;
   }) 
@@ -130,7 +132,7 @@ const Rows = ({rows, amountOfRows}) => {
   )
 }
 
-const Row = ({row, handleClick}) => {
+const Row = ({row, onClick}) => {
   const color = row.createdByCompany ? "row-green" : row.differ ? "row-orange" : "row-normal";
   return(
     <div className={`container-row absence-row ${color}`}>
@@ -142,7 +144,7 @@ const Row = ({row, handleClick}) => {
       <div className="table-data">{row.officeName}</div>
       <div className="table-data">{row.logType}</div>
       <div className="table-data">{row.remarks}</div>
-      <ButtonPrimary style={{width: "200px"}} text="VIEW LOCATION"/>
+      <ButtonPrimary onClick={onClick} style={{width: "200px"}} text="VIEW LOCATION"/>
     </div>
   );
 }

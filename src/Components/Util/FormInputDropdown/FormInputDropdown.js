@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 
 import './FormInputDropdown.css';
 import ReactDatePicker from 'react-datepicker';
 export default class FormInputDropdown extends React.Component{
   state={
-    selectedOption: null,
+    selectedOption: this.props.value,
     sent: false,
   }
   handleChange = (selectedOption) => {
@@ -33,18 +33,13 @@ export default class FormInputDropdown extends React.Component{
       }
   }
   render(){ 
-    const { placeholder,  name } = this.props;
+    const { placeholder,  name, className, options } = this.props;
     
     var style={display: 'flex', position: 'relative'}
     
-    const options = [
-      { value: 'chocolate', label: 'Chocolate' },
-      { value: 'strawberry', label: 'Strawberry' },
-      { value: 'vanilla', label: 'Vanilla' },
-    ];
-
+   
     return (
-      <div className={`form-control`} style={style}>
+      <div className={`form-control ${className}`} style={style}>
        <Select placeholder={placeholder} name={name} className="form-input-select-container" classNamePrefix="form-input-select" value={this.state.selectedOption} onChange={this.handleChange} options={options}/>
       </div>
     )

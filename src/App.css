@@ -64,9 +64,9 @@
 }
 
 .container-header {
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -138,6 +138,25 @@
 
 input[disabled] {
   color: #828282;
+}
+
+input:focus, textarea:focus {
+  background: #48396a !important;
+  -webkit-transition: 300ms all !important;
+  transition: 300ms all !important;
+}
+
+.uneven-form .form-wrapper:last-child {
+  margin: 23px auto;
+  margin-bottom: 0;
+}
+
+.uneven-form input[type="radio"] {
+  margin-right: 0;
+}
+
+.label-ls-0 label {
+  letter-spacing: 0;
 }
 
 input[type="radio"] {

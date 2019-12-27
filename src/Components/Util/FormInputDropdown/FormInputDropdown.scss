@@ -8,6 +8,11 @@
 .form-input-select__control{
   background: $color-bg-darker !important;
 }
+
+.form-input-select__control--menu-is-open{
+  background: darken($color-bg-light,10%) !important;
+  transition: 300ms all !important;
+}
 .form-input-select__single-value{
   color: $color-light-grey !important;
 }

@@ -6,6 +6,12 @@
   background: #251A3C !important;
 }
 
+.form-input-select__control--menu-is-open {
+  background: #48396a !important;
+  -webkit-transition: 300ms all !important;
+  transition: 300ms all !important;
+}
+
 .form-input-select__single-value {
   color: #F2F2F2 !important;
 }

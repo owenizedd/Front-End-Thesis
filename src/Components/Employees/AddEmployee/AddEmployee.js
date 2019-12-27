@@ -29,7 +29,7 @@ export default class AddEmployee extends React.Component{
   handleClick = async() => {
     this.setState({isLoading: true});
     let employeeData = convertToForm(this.refs.addEmployeeForm);
-    console.log(employeeData);
+    // console.log(employeeData);
 
     
     await fetch(`${this.api}/api/employee`, {
