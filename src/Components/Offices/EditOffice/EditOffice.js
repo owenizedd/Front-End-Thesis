@@ -2,14 +2,15 @@ import React from 'react'
 import ButtonPrimary from '../../Util/ButtonPrimary/ButtonPrimary'
 import FormInput from '../../Util/FormInput/FormInput'
 
-import { convertToForm, getSession } from '../../Util/common'
+import { convertToForm, getSession, API } from '../../Util/common'
 import Cookie from 'js-cookie'
 import Modal from '../../Util/ModalAndLogin/Modal'
 import Loading from '../../Util/ModalAndLogin/Loading'
 import Map from '../../Util/Map/Map'
 import { Redirect } from 'react-router-dom'
 class EditOfficeComponent extends React.Component{
-  api = 'http://157.230.43.112:3000';
+  api = API
+
   state = {
     office_id: '',
     office_name: '',
@@ -20,6 +21,7 @@ class EditOfficeComponent extends React.Component{
     lastPolygon: null,
   }
   handleChange = (evt) => {
+    
     const {name, value} = evt.target;
     this.setState({
       [name]: value
@@ -27,20 +29,18 @@ class EditOfficeComponent extends React.Component{
   }
   handleMapChange = (pos) => {
     pos.longitude = pos.lng;
-    pos.latitude = pos.lat;
+    pos.latitude = pos.lat; 
     this.setState({positions: pos})
   }
   handleClick = () => {
     this.setState({isLoading: true});
     let officeData = convertToForm(this.refs.editOfficeForm);
-    console.log(this.state)
     for(let i = 0; i < this.state.positions.length; i++){
       officeData.append('longitude', this.state.positions[i].longitude);
       officeData.append('latitude', this.state.positions[i].latitude);
     }
 
     officeData.forEach( (val,key) => {
-      console.log(`${key} : ${val}`);
     })
     fetch(`${this.api}/api/office/${this.props.match.params.id}`, {
       method: "PUT",
@@ -51,13 +51,11 @@ class EditOfficeComponent extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       this.setState({info: data.message, isLoading:false});
 
     })
     .catch( err => {
       this.setState({ info: err.toString(), isLoading: false});
-      console.log("error")
     })
 
   }
@@ -84,8 +82,23 @@ class EditOfficeComponent extends React.Component{
     .catch(err => this.setState({isLoading: false}))
   }
 
+  deleteOffice = () => {
+    if (!window.confirm("Are you sure want to delete this office?")) return
+    
+    fetch(`${this.api}/api/office/${this.props.match.params.id}`, {
+      method: "DELETE",
+      headers: {
+        'authorization': Cookie.get("JWT_token")
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({info: data.message, isLoading:false})
+    })
+    .catch(err => this.setState({isLoading: false, info: err.toString}));
+  }
+
   render(){
-    console.log(this.state)
     return(
       <>
       {this.state.info && 
@@ -116,6 +129,7 @@ class EditOfficeComponent extends React.Component{
               <FormInput type="text" name="address" value={this.state.address} onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper mt-15">
+            <ButtonPrimary onClick={this.deleteOffice} className="button-danger" text="DELETE OFFICE"/>
               <ButtonPrimary onClick={this.handleClick} text="SUBMIT"/>
             </div>
           </form>

@@ -2,15 +2,16 @@ import React from 'react';
 import './Company.css';
 import FormInput from '../Util/FormInput/FormInput';
 import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
-import { convertToForm, saveSidebarState } from '../Util/common';
+import { convertToForm, saveSidebarState, API } from '../Util/common';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Cookie from 'js-cookie';
 import Modal from '../Util/ModalAndLogin/Modal';
 
 export default class Company extends React.Component{
-  api = 'http://157.230.43.112:3000'
+  api = API
 
   state={
+    
     isLoading: false,
     info: '',
     username: '',
@@ -47,7 +48,6 @@ export default class Company extends React.Component{
     let sendData = convertToForm(form);
     
     companyData.forEach( (val, key) => {
-      // console.log(key);
       if (key.indexOf("start_work_day") !== -1){
         sendData.append("start_time", val);
         sendData.delete(key);
@@ -152,6 +152,7 @@ export default class Company extends React.Component{
    
     return(
       <>
+        
         {this.state.info && 
           <Modal onClick={() => {}}>
             <div className="container-col container-ctr" >

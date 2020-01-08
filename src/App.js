@@ -18,6 +18,10 @@ import Roles from './Components/Roles/Roles';
 import Positions from './Components/Positions/Positions';
 import AddPosition from './Components/Positions/AddPosition/AddPosition';
 import EditPosition from './Components/Positions/EditPosition/EditPosition';
+import AbsenceLogDetails from './Components/AbsenceLogDetails/AbsenceLogDetails';
+import Report from './Components/Report/Report';
+import Permissions from './Components/Permissions/Permissions';
+import AddPermission from './Components/Permissions/AddPermission/AddPermission';
 
 class App extends Component {
   state = {
@@ -27,6 +31,8 @@ class App extends Component {
   }
   
   componentDidMount = () => {
+    
+    console.log(`Made with <3 with React.js`)
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
   }
@@ -43,7 +49,6 @@ class App extends Component {
 
   }
   render(){
-    
     //change all background to dark purple + padding left for body
     //so that the content wont get covered by sidebar. 
     this.state.isLoggedIn && require('./logged-in.css');
@@ -89,8 +94,21 @@ class App extends Component {
             <Route path="/positions/add" exact render={ ()=> (
               getSession() ? <AddPosition/> : <Redirect to="/"/>
             )}/>
-            <Route path="/positions/edit/:id" exact render={ ()=> (
-              getSession() ? <EditPosition/> : <Redirect to="/"/>
+            <Route path="/positions/edit/:id" exact render={EditPosition}/>
+            
+            <Route path="/absences" exact render={ () => (
+              getSession() ? <AbsenceLogDetails/> : <Redirect to="/"/>
+            )}/>
+
+            <Route path="/report" exact render={ () => (
+              getSession() ? <Report/> : <Redirect to="/"/>
+            )}/>
+
+            <Route path="/permissions" exact render= { () => (
+              getSession() ? <Permissions/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/permissions/add" exact render= { () => (
+              getSession() ? <AddPermission/> : <Redirect to="/"/>
             )}/>
             {/* When there is no route match to path, render 404. */}
             <Route path="/" render={() => <h1 className="ta-ctr">404 Not Found.<br/> Unfortunately, we couldn't find the page you're looking for.</h1>} />

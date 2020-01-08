@@ -1,6 +1,7 @@
 import Cookie from 'js-cookie';
 
-
+//change this api to change the link of API call for all files.
+let API = 'http://157.230.43.112:3000';
 
 
 function convertToForm(formElement){
@@ -26,24 +27,5 @@ function getSidebarState(){
 function saveSidebarState(index){
   localStorage.setItem('sidebarIndex', index);
 }
-// let api = 'http://157.230.43.112:3000';
 
-// async function getAPI(link){
-//   let returnData = null ;
-//   await fetch(`${api}/${link}`, {
-//     headers: {
-//       'authorization': Cookie.get('JWT_token')
-//     }
-//   })
-//     .then(res => res.json())
-//     .then(data => returnData = data.data.length)
-//   console.log(returnData);
-//   return ret;
-//   }
-
-// function getCompany(){
-  
-//   getAPI('api/office');
-
-// }
-export {convertToForm, getSession, saveSidebarState, getSidebarState}
+export {API, convertToForm, getSession, saveSidebarState, getSidebarState}

@@ -4,16 +4,17 @@ import FormInputDropdown from '../../Util/FormInputDropdown/FormInputDropdown'
 import ButtonPrimary from '../../Util/ButtonPrimary/ButtonPrimary';
 import Modal from '../../Util/ModalAndLogin/Modal';
 import Loading from '../../Util/ModalAndLogin/Loading';
-import { convertToForm } from '../../Util/common';
+import { convertToForm, API } from '../../Util/common';
 import Cookie from 'js-cookie'
 export default class AddPosition extends React.Component{
-  api = 'http://157.230.43.112:3000'
+  api = API
 
   state = {
     isLoading: false,
     info: ''
   }
   handleChange = (evt) => {
+    
     const {name, value} = evt.target;
     this.setState({
       [name]: value
@@ -24,18 +25,7 @@ export default class AddPosition extends React.Component{
     this.setState({isLoading: true});
     let positionData = convertToForm(this.refs.addPositionForm);
     if (positionData.get('superior_position_no').length==0) positionData.delete('superior_position_no')
-    // positionData.forEach((val,key) => {
-    //   if (key.indexOf('leave')!==-1 || key.indexOf('late')!==-1){
-    //     let number = 0;
-    //     for(let i = 0; i < val.length; i++){
-    //       if (val[i] >= '0' && val[i] <='9'){
-    //         number = number * 10 +  +val[i]
-    //       }
-    //     }
-    //     positionData.set(key, number)
-    //   }
-    // })
-    
+   
     fetch(`${this.api}/api/position`, {
       method: 'POST',
       body: positionData,
@@ -48,6 +38,32 @@ export default class AddPosition extends React.Component{
     .catch(err => this.setState({isLoading: false, info: err.toString()}))
   
 
+  }
+
+  async componentDidMount(){
+    this.setState({isLoading:true})
+    await fetch(`${this.api}/api/position`, {
+      headers: {
+        'authorization': Cookie.get('JWT_token')
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.data){
+        let positions = []
+        data.data.forEach(pos => {
+          positions.push({
+            value: pos.position_no,
+            label: pos.position_id + ' | ' + pos.position_name
+          })
+        })
+        this.setState({listPositions: positions})
+      }
+      else this.setState({info: data.message})
+    })
+    .catch( err => this.setState({ info: err.toString()}))
+
+    this.setState({isLoading: false})
   }
 
   render(){
@@ -76,7 +92,7 @@ export default class AddPosition extends React.Component{
             </div>
             <div className="form-wrapper">
               <label htmlFor="superior_position_no">Superior No.</label>
-              <FormInputDropdown name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
+              <FormInputDropdown options={this.state.listPositions} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="">Maximum Days Leave Anually</label>
@@ -87,8 +103,8 @@ export default class AddPosition extends React.Component{
               <FormInput type="text" onChange={this.handleChange} required name="leave_valid_after_days"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="late_tolerance">Late Tolerance (Minutes)</label>
-              <FormInput type="text" onChange={this.handleChange} required name="late_tolerance"/>
+              <label htmlFor="late_tolerance_mins">Late Tolerance (Minutes)</label>
+              <FormInput type="text" onChange={this.handleChange} required name="late_tolerance_mins"/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="">Leave Valid For Days</label>
@@ -97,26 +113,26 @@ export default class AddPosition extends React.Component{
             <div className="form-wrapper mt-15">
               <label htmlFor="">Flexible Work Hours</label>
               <input type="radio" value="Yes" name="is_flexible_work_hours" id=""/> Yes
-              <input type="radio" value="No" name="is_flexible_work_hours" id=""/> No
+              <input type="radio" value="0" name="is_flexible_work_hours" id=""/> No
               <br/>
               <label htmlFor="">Use Company Settings</label>
               <input type="radio" value="Yes" name="is_follow_company_settings" id=""/> Yes
-              <input type="radio" value="No" name="is_follow_company_settings" id=""/> No
+              <input type="radio" value="0" name="is_follow_company_settings" id=""/> No
             </div>
             <div className="form-wrapper">
             <label htmlFor="">Must Absence at Designated Office</label>
               <br/>
               <input type="radio" value="Yes" name="must_same_office" id=""/> Yes
-              <input type="radio" value="No" name="must_same_office" id=""/> No
+              <input type="radio" value="0" name="must_same_office" id=""/> No
               <br/>
               <label htmlFor="">Absence by Photo</label>
               <input type="radio" value="Yes" name="must_photo" id=""/> Yes
-              <input type="radio" value="No" name="must_photo" id=""/> No
+              <input type="radio" value="0" name="must_photo" id=""/> No
             </div>
             <div className="form-wrapper">
             <label htmlFor="">Allow Use Other Device</label>
               <input type="radio" value="Yes" name="allow_nebeng" id=""/> Yes
-              <input type="radio" value="No" name="allow_nebeng" id=""/> No
+              <input type="radio" value="0" name="allow_nebeng" id=""/> No
             </div>
             <div className="form-wrapper">
               <ButtonPrimary text="SUBMIT" onClick={this.handleClick}/>

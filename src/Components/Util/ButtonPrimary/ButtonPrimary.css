@@ -33,3 +33,8 @@
   background: -webkit-gradient(linear, left top, right top, from(#AD3333), to(#C2513E));
   background: linear-gradient(to right, #AD3333, #C2513E);
 }
+
+.button-success {
+  background: -webkit-gradient(linear, left top, right top, from(#86AF72), to(#6897BA));
+  background: linear-gradient(to right, #86AF72, #6897BA);
+}

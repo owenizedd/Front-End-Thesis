@@ -31,12 +31,14 @@ export default class FormInput extends React.Component{
   
   render(){ 
   
-  const {value, type, onChange, name, placeholder, hidden, disabled, required, autoFocus, icon} = this.props;
-  
+  let {value, type, onChange, name, placeholder, hidden, disabled, required, autoFocus, icon} = this.props;
+  if (!onChange) onChange = () => {}
   if (hidden || icon) var style={display: 'flex', position: 'relative'}
   
   let form = <input autoFocus={autoFocus} required={required ? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} />;
-  
+  if (type === "file"){
+    form = <input autoFocus={autoFocus} required={required ? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={this.state.type} value={value} placeholder={placeholder} onChange={(evt) => onChange(evt)} accept="image/jpeg" />;
+  }
   if (type === "textarea"){
     form = <textarea autoFocus={autoFocus} required={required? true: false} disabled={disabled} className={`form-input ${type}`} name={name} type={type} value={value} placeholder={placeholder} rows="2" onChange={(evt) => onChange(evt)}>{value}</textarea>
   }

@@ -5,6 +5,10 @@
   padding: 10px 30px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  margin: 25px 25px;
+  -webkit-box-pack: start !important;
+      -ms-flex-pack: start !important;
+          justify-content: flex-start !important;
 }
 
 .card-title {

@@ -6,6 +6,8 @@
   text-align: center;
   padding: 10px 30px;
   box-sizing: border-box;
+  margin: 25px 25px;
+  justify-content: flex-start !important;
 }
 .card-title{
   font-weight: normal;
@@ -25,4 +27,8 @@
 }
 .card a{
   outline: none;
+}
+
+.container-card > div{
+
 }

@@ -1,0 +1,21 @@
+.attachment-photo .form-control {
+  width: 10%;
+}
+
+.attachment-modal input {
+  padding: 5px 10px;
+  width: 110%;
+  margin-left: -5%;
+}
+
+.attachment-photo {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 10px;
+  padding-right: 40px;
+  margin: 2px 0px;
+  border-radius: 10px;
+  width: 35%;
+  background: rgba(95, 75, 139, 0.5);
+}

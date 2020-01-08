@@ -7,8 +7,9 @@ import Cookie from 'js-cookie'
 import Modal from '../Util/ModalAndLogin/Modal';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Card from '../Util/Card/Card';
+import { API } from '../Util/common';
 export default class Offices extends React.Component{
-  api = 'http://157.230.43.112:3000';
+  api = API
   state = {
     info: '',
     isLoading: false,
@@ -20,6 +21,7 @@ export default class Offices extends React.Component{
     })
   }
   componentDidMount = () =>{
+    
     this.setState({isLoading: true})
     fetch(`${this.api}/api/office`, {
       headers: {
@@ -29,7 +31,6 @@ export default class Offices extends React.Component{
     .then(res => res.json())
     .then(data => {
       if (data.data){
-        console.log(data.data)
         this.setState({offices: data.data, isLoading: false})
       }
     })
@@ -40,16 +41,15 @@ export default class Offices extends React.Component{
     if (this.state.offices){
       var officesArr = this.state.offices.filter(office => office.office_id.toLowerCase().indexOf(this.state.searchValue) !== -1 || office.office_name.toLowerCase().indexOf(this.state.searchValue) !== -1 || office.address.toLowerCase().indexOf(this.state.searchValue) !== -1)
       .map(office => {
-        console.log(office.office_name)
         return (
           <Card width="250px" height="200px" className="m-5">
-                <Link to={`/offices/edit/${office.office_no}`}>
-                  <h2 className="card-link">{office.office_id}</h2>
-                </Link>
-                <h3>{office.office_name}</h3>
-                <hr />
-                <p>{office.address}</p> 
-            </Card>
+            <Link to={`/offices/edit/${office.office_no}`}>
+              <h2 className="card-link">{office.office_id}</h2>
+            </Link>
+            <h3>{office.office_name}</h3>
+            <hr />
+            <p>{office.address}</p>
+          </Card>
         )
       })
     }

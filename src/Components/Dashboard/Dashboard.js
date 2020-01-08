@@ -5,6 +5,7 @@ import Card from '../Util/Card/Card';
 import AbsenceTable from '../Util/AbsenceTable/AbsenceTable';
 import Cookie from 'js-cookie';
 import Loading from '../Util/ModalAndLogin/Loading';
+import { API } from '../Util/common';
 
 
 export default class Dashboard extends React.Component{
@@ -20,7 +21,7 @@ export default class Dashboard extends React.Component{
   
   componentDidMount = async() => {
     //fetch
-    let api = 'http://157.230.43.112:3000'
+    let api = API
 
     this.setState({isLoading: true});
     await fetch(`${api}/api/office`,{
@@ -55,7 +56,6 @@ export default class Dashboard extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data.data)
       if (data.data){
         let address = data.data.address == null ? 'JL. Medan Binjai Km 10,5' : data.data.address;
         if (address.length > 23) address = address.slice(0, 20) + '...';
@@ -78,6 +78,7 @@ export default class Dashboard extends React.Component{
 
   render(){
 
+ 
     return(
       <>
         {this.state.isLoading && <Loading/>}

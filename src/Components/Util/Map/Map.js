@@ -15,7 +15,7 @@ export default class Map extends React.Component{
 
     let lat = map.center.lat();
     let lng = map.center.lng();
-    if (!this.props.positions) this.props.onChange({lat, lng});
+    if (!this.props.positions && !this.props.viewMode) this.props.onChange({lat, lng});
     this.setState({
       latitude: lat,
       longitude: lng
@@ -29,7 +29,7 @@ export default class Map extends React.Component{
       lat: this.state.latitude,
       lng: this.state.longitude
     });
-    if (this.props.positions) this.props.onChange(pos)
+    if (this.props.positions && !this.props.viewMode) this.props.onChange(pos)
     this.setState({
       positions: pos
     })
@@ -83,8 +83,6 @@ export default class Map extends React.Component{
   componentDidUpdate = () => {
 
     if (this.props.positions && this.props.positions.length > 0 && this.state.notCreated && this.state.maps) {
-
-      console.log(this.props.positions)
       let marks = this.props.positions.map(pos => {
         
         return <Marker
@@ -117,9 +115,11 @@ export default class Map extends React.Component{
       })
     }
   }
+
+  
   render(){
     return(
-      <div style={{ height: '30vh', width: '60%', margin: '70px auto' }}>
+      <div style={{ height: this.props.mapHeight || '30vh', width: this.props.mapWidth || '60%', margin: '70px auto' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyBVtXZctg2ms2KiPOqxnPr7wxDQuY5zTFw' }}
           defaultCenter={{lat: 3.58333, lng: 98.66667}} 
@@ -131,7 +131,13 @@ export default class Map extends React.Component{
         >
 
           {this.state.marks}
-
+          {
+            this.props.latitude && this.props.longitude &&
+            <Marker
+            lat={this.props.latitude}
+            lng={this.props.longitude}
+            icon="fa-map-marker-alt"/>
+          }
           <Marker
             lat={this.state.latitude}
             lng={this.state.longitude}

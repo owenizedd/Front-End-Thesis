@@ -3,9 +3,9 @@ import {Link} from 'react-router-dom';
 import './Sidebar.css';
 
 export default ({sidebarIndex, onClick}) => {
-  let menuNames   = ["Home", "Company", "Employees", "Offices", "Roles", "Positions", "Absences", "Report", "Permission Requests"];
+  let menuNames   = ["Home", "Company", "Employees", "Offices", "Roles", "Positions", "Absences", "Report", "Permissions"];
   let menuIcons   = ["fa-home", "fa-cogs", "fa-users", "fa-building", "fa-users-cog", "fa-list", "fa-money-check", "fa-chart-bar", "fa-tasks"];
-  let target      = ["/", "/company", "/employees", "/offices", "/roles", "/positions", "/absences", "/report", "/permission-requests"]; 
+  let target      = ["/", "/company", "/employees", "/offices", "/roles", "/positions", "/absences", "/report", "/permissions"]; 
   let sidebarArr  = [];
   for(let i = 0; i < menuNames.length; i++){
     sidebarArr.push(
@@ -23,7 +23,7 @@ export default ({sidebarIndex, onClick}) => {
     <div className="sidebar-container">
       <div className="sidebar-header">
         <img alt="logo" className="logo" src="assets/images/logo_svg.svg" width="100px" height="auto"/>
-        <h3>HR Online</h3>
+        <h3>Recognisight</h3>
       </div>
       <ul className="sidebar-links">
     

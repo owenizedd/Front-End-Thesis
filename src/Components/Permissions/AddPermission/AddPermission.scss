@@ -1,0 +1,23 @@
+@import '../../Variables.scss';
+
+.attachment-photo .form-control{
+  width: 10%;
+
+}
+.attachment-modal input{   
+  padding: 5px 10px;
+  width: 110%;
+  margin-left: -5%;
+}
+
+.attachment-photo{
+  align-items: center;
+  padding: 5px 10px;
+  padding-right: 40px;
+  margin: 2px 0px;
+  border-radius: 10px;
+  width: 35%;
+  background: transparentize($color-bg-light, .5)
+  // background: darken(adjust-color($color-bg-light, $alpha: 1.0), 10%);
+}
+

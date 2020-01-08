@@ -16,3 +16,8 @@
       -ms-flex-align: center;
           align-items: center;
 }
+
+.modal.blurry ~ * {
+  -webkit-filter: blur(2px);
+          filter: blur(2px);
+}

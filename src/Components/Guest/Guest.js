@@ -6,7 +6,7 @@ import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
 
 import './Guest.css';
 
-import {convertToForm, saveSidebarState} from '../Util/common';
+import {convertToForm, saveSidebarState, API} from '../Util/common';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Modal from '../Util/ModalAndLogin/Modal';
 //username
@@ -18,7 +18,7 @@ import Modal from '../Util/ModalAndLogin/Modal';
 
 
 export default class Guest extends React.Component{
-  api = 'http://157.230.43.112:3000';
+  api = API;
 
   constructor(props){
     super(props);
@@ -34,6 +34,7 @@ export default class Guest extends React.Component{
   }
 
   handleChange = (evt) => {
+    
     this.setState({
       [evt.target.name]: evt.target.value 
     })
@@ -46,7 +47,6 @@ export default class Guest extends React.Component{
     const that = this;
     const props = this.props;
     if (this.state.username && this.state.password){
-      console.log('trying to login...');
       
       this.setState({isLoading: true});
       let loginData = convertToForm(this.formRef.current);
@@ -59,12 +59,10 @@ export default class Guest extends React.Component{
         }
       })
       .then(res =>  {
-        console.log(res);
         return res.json();
       })
       .then(data => {
         //Bearer token
-        console.log(data);
         that.setState({isLoading: false});
         
         //if credential is correct
@@ -87,7 +85,6 @@ export default class Guest extends React.Component{
   handleClickRegister = () => {
     const that = this;
     if (this.state.email && this.state.password && this.state.username){
-      console.log('trying to register...');
       this.setState({isLoading: true});
       let registerData = convertToForm(this.formRef.current);
       
@@ -101,7 +98,6 @@ export default class Guest extends React.Component{
       .then(res => res.json())
       .then(data => {
         that.setState({isLoading: false});
-        console.log(data);
       })
     }
     else{
@@ -139,7 +135,6 @@ export default class Guest extends React.Component{
     })
   }
   componentDidUpdate(){
-    // console.log(this.state)
   }
 
   render(){

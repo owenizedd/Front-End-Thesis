@@ -2,14 +2,14 @@ import React from 'react'
 import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary'
 import FormInput from '../Util/FormInput/FormInput'
 import './Roles.css'
-import { convertToForm } from '../Util/common'
+import { convertToForm, API } from '../Util/common'
 import Cookie from 'js-cookie'
 import Modal from '../Util/ModalAndLogin/Modal'
 import Loading from '../Util/ModalAndLogin/Loading'
 import FormInputDropdown from '../Util/FormInputDropdown/FormInputDropdown'
 export default class Roles extends React.Component{
 
-  api = 'http://157.230.43.112:3000'
+  api = API
   state={
     allow_manage_absence: '',
     allow_manage_office: '',
@@ -20,6 +20,7 @@ export default class Roles extends React.Component{
     showAddRole: true,
   }
   handleChange = (evt) => {
+    
     const {name, value} = evt.target;
     
     this.setState({
@@ -34,8 +35,6 @@ export default class Roles extends React.Component{
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
-        console.log("CHANGEDD")
         this.setState({isLoading: false})
         this.setState({
           role_no: data.data.role_no,
@@ -144,7 +143,6 @@ export default class Roles extends React.Component{
         })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
           this.setState({info: data.message, isLoading: false});
         })
         .catch(err => {
@@ -157,6 +155,7 @@ export default class Roles extends React.Component{
   }
 
   handleClickDelete = async() => {
+    if (!window.confirm("Are you sure want to delete this employee?")) return
     this.setState({isLoading: true})
     if (this.state.role_no){
       await fetch(`${this.api}/api/role/${this.state.role_no}`, {
@@ -167,7 +166,6 @@ export default class Roles extends React.Component{
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         this.setState({info: data.message, isLoading: false});
       })
       .catch(err => {

@@ -14,7 +14,7 @@ export default class Searchbar extends React.Component{
   render(){
     const {onSearch, placeholder, className} = this.props;
     return(
-      <div className={`searchbar ${className}`}>
+      <div className={`searchbar ${className || ' '}`}>
         <input type="text" name="searchbar" id="searchbar"  placeholder={placeholder} value={this.state.searchbar} onChange={this.handleChange}/>
         <i className="fa fa-search search-icon" onClick={() => onSearch(this.state.searchbar)}></i>
       </div>

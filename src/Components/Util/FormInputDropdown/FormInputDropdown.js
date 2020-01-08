@@ -2,13 +2,14 @@ import React from 'react';
 import Select from 'react-select';
 
 import './FormInputDropdown.css';
-import ReactDatePicker from 'react-datepicker';
 export default class FormInputDropdown extends React.Component{
   state={
     selectedOption: this.props.value,
     sent: false,
+    receivedSelectedProps: false
   }
   handleChange = (selectedOption) => {
+
     this.setState({
       selectedOption: selectedOption,
       event: { //fake event
@@ -22,9 +23,14 @@ export default class FormInputDropdown extends React.Component{
 
  
   }
-  
+  componentDidMount(){
+    
+  }
   componentDidUpdate(){
+    if (this.props.value && !this.state.receivedSelectedProps){
+      this.setState({selectedOption: this.props.value, receivedSelectedProps: true})
 
+    }
     //logic for prevent  sending data repeteadly to parent component
     if (!this.state.sent) //check if it hasn't been sent yet.
       if (this.props.onChange !== null && this.state.event){
@@ -36,7 +42,6 @@ export default class FormInputDropdown extends React.Component{
     const { placeholder,  name, className, options } = this.props;
     
     var style={display: 'flex', position: 'relative'}
-    
    
     return (
       <div className={`form-control ${className}`} style={style}>
