@@ -15,6 +15,7 @@ import Offices from './Components/Offices/Offices';
 import AddOffice from './Components/Offices/AddOffice/AddOffice';
 import EditOffice from './Components/Offices/EditOffice/EditOffice';
 import Roles from './Components/Roles/Roles';
+import EditRole from './Components/Roles/EditRole/EditRole'
 import Positions from './Components/Positions/Positions';
 import AddPosition from './Components/Positions/AddPosition/AddPosition';
 import EditPosition from './Components/Positions/EditPosition/EditPosition';
@@ -22,6 +23,7 @@ import AbsenceLogDetails from './Components/AbsenceLogDetails/AbsenceLogDetails'
 import Report from './Components/Report/Report';
 import Permissions from './Components/Permissions/Permissions';
 import AddPermission from './Components/Permissions/AddPermission/AddPermission';
+import AddRole from './Components/Roles/AddRole/AddRole';
 
 class App extends Component {
   state = {
@@ -36,6 +38,7 @@ class App extends Component {
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
   }
+  
   componentDidUpdate = () => {
     
   }
@@ -86,6 +89,10 @@ class App extends Component {
             <Route path="/roles" exact render={() => (
               getSession() ? <Roles/> : <Redirect to="/"/>
             )}/>
+            <Route path="/roles/add" exact render={ ()=> (
+              getSession() ? <AddRole/> : <Redirect to="/"/>
+            )}/>
+            <Route path="/roles/edit/:id" exact component={EditRole}/>
 
             <Route path="/positions" exact render={ () => (
               getSession() ? <Positions/> : <Redirect to="/"/>
@@ -94,6 +101,7 @@ class App extends Component {
             <Route path="/positions/add" exact render={ ()=> (
               getSession() ? <AddPosition/> : <Redirect to="/"/>
             )}/>
+
             <Route path="/positions/edit/:id" exact render={EditPosition}/>
             
             <Route path="/absences" exact render={ () => (

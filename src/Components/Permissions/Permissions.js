@@ -66,7 +66,6 @@ export default class Permissions extends React.Component{
       if (data.message.indexOf("updated")!==-1){
         let newCards = [...this.state.permissions];
         newCards = newCards.filter(prm => prm.permission_request_no !== permission_no);
-        console.log(newCards)
         this.setState({permissions: newCards})
       }
     })
@@ -82,7 +81,6 @@ export default class Permissions extends React.Component{
     .then(res => res.json())
     .then(data => {
       if (data.data){
-        console.log(data.data)
         this.setState({ 
           
           permissionDetail: { 
@@ -157,7 +155,6 @@ export default class Permissions extends React.Component{
 
 const RequestsCard = ({onSubmit, permissions}) => {
   const card = permissions.map(perm => {
-    console.log(perm)
     return(
       <Card width="325px" height="325px"  className="container-col container-ctr card-permission">
         <p>{perm.employee_name}</p>

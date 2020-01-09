@@ -21,7 +21,6 @@ export default class AddPermission extends React.Component{
   }
 
   handleClick = async() => {
-    console.log(this.state)
     this.setState({isLoading: true})
     try{
       let attachmentData = new URLSearchParams();
@@ -32,7 +31,6 @@ export default class AddPermission extends React.Component{
       attachmentData.set('image', this.state.photos[0].slice(23, this.state.photos[0].length))
        
       attachmentData.set('employee_no', this.state.employee_no.value)
-      console.log(attachmentData.get('employee_no'))    
       await fetch(`${this.api}/api/permission/attachment`, {
         body: attachmentData,
         method: 'POST',
@@ -43,7 +41,6 @@ export default class AddPermission extends React.Component{
       .then(res => res.json())
       .then(data => {
         if (data.data){
-          console.log(data.data);
           this.setState({ absence_photo_no: data.data.absence_photo_no})
         }
         else{
@@ -65,9 +62,7 @@ export default class AddPermission extends React.Component{
         permissionData.set('until_date_time', this.state.end_range.toJSON())
       }
       permissionData.set('absence_photo_no', this.state.absence_photo_no)
-      permissionData.forEach( (val, key) => {
-        console.log(key, val)
-      })
+
       await fetch(`${this.api}/api/permission`,{
         body: permissionData,
         method: 'POST',
@@ -90,7 +85,7 @@ export default class AddPermission extends React.Component{
   handleChange = (evt) => {
     
     const {type, name, value} = evt.target;
-    console.log(name, value)
+
     if (type==="file"){
       this.readImages(evt.target.files)
     }
@@ -281,7 +276,6 @@ const DateRangeModal = ({onChange, onClick, onClearFilter, initialValueStart, in
 }
 
 const AttachmentsModal = ({deletePhoto, addPhoto, onClose, photos}) => {
-  console.log(photos!==undefined && photos.length)
   let listPhoto = photos.map( (photo,idx) => (
     <div className="attachment-photo container-row spc-bt" key={idx}>
       <img src={photo} width="70px" height="70px"/>

@@ -48,7 +48,6 @@ export default class Report extends React.Component{
   }
 
   filterReportByEmployee = () => {
-    console.log(this.state.selected_employee)
     this.toggleEmployeeModal();
     this.fetchNewRows();
   }
@@ -103,7 +102,6 @@ export default class Report extends React.Component{
     .then(data => {
       if (data.data){
         // this.setState({info: data.message})
-        console.log(data.data)
         
         this.setState({rows: data.data})
       }
@@ -151,7 +149,6 @@ export default class Report extends React.Component{
       var employeeDetail = this.state.employeeData.map( emp => {
         console.info(emp)
         if (!this.state.selected_employee) return;
-       console.log(emp.employee_no, this.state.selected_employee.value) 
         if (emp.employee_no === this.state.selected_employee.value ){
           return(
             <div>
@@ -170,7 +167,6 @@ export default class Report extends React.Component{
         }
       })
     }
-    console.log(employeeDetail)
     return(
       <>
         {this.state.isLoading && <Loading/>}
@@ -230,14 +226,12 @@ let savedPermission={};
 const getDays = (dateString1, dateString2) =>{
   //push, but reset all time from permission to 00.00 on that day to allow avoid bugs on time when checking
   if (savedPermission[dateString1] && savedPermission[dateString2]) return 0;
-  console.log("MASUK GETDAYS")
 
   savedPermission[dateString1]=true;
   savedPermission[dateString2]=true;
 
   let d1 = new Date(dateString1);
   let d2 = new Date(dateString2);
-  console.log((d2-d1) / 1000 / 60 / 60 / 24)
   return (d2-d1) / 1000 / 60 / 60 / 24
 }
 

@@ -11,9 +11,7 @@ export default class PositionsTable extends React.Component{
 
   }
   handleClick = () => {
-    
     this.props.onLoad()
-
   }
   handleDelete = (no) => { 
     this.props.onLoad()
