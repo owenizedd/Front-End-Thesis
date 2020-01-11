@@ -3,12 +3,17 @@
 
 
 .container-employee-buttons {
-  justify-content: space-between;
+  justify-content: space-evenly;
   > div{
     width: 30%;
     > button{
       background: $gradient-button-danger;
     }
+  }
+
+  *{
+    padding: 5px;
+    font-size: .95em;
   }
 }
 

@@ -110,6 +110,6 @@
 }
 
 .row-green {
-  background: -webkit-gradient(linear, left top, right top, from(#5D8246), to(#2B513F));
-  background: linear-gradient(to right, #5D8246, #2B513F);
+  background: -webkit-gradient(linear, left top, right top, from(#5D8246), to(#2B513F)) !important;
+  background: linear-gradient(to right, #5D8246, #2B513F) !important;
 }

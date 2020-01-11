@@ -1,7 +1,7 @@
 .container-employee-buttons {
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .container-employee-buttons > div {
@@ -11,6 +11,11 @@
 .container-employee-buttons > div > button {
   background: -webkit-gradient(linear, left top, right top, from(#AD3333), to(#C2513E));
   background: linear-gradient(to right, #AD3333, #C2513E);
+}
+
+.container-employee-buttons * {
+  padding: 5px;
+  font-size: .95em;
 }
 
 .wrapper-form.employee .form-wrapper:last-child, .wrapper-form.form-role .form-wrapper:last-child {

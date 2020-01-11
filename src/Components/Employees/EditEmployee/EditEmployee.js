@@ -20,7 +20,9 @@ class EditEmployeeComponent extends React.Component{
     isLoading: false,
     listOffices: [],
     listPositions: [],
-    listRoles: []
+    listRoles: [],
+    imgBase64s: [],
+    showModalProfilePictures: false,
   }
 
   handleChange = (evt) => {
@@ -71,10 +73,10 @@ class EditEmployeeComponent extends React.Component{
     .then( data => {
       this.setState( prevState => {
         // didn't think about data.data before...
+        console.log(data.data)
         return {
           ...prevState,
           ...(data.data), 
-          isLoading: false
         }
       })
       this.setState({
@@ -82,6 +84,34 @@ class EditEmployeeComponent extends React.Component{
         
       })
     })
+
+    //fetch all photo base64
+    if (this.state.employee_photo_no){
+      this.state.photos.forEach( (photo,idx) => {
+        if (photo.employee_photo_no===this.state.employee_photo_no){
+          this.setState({selectedPhotoIdx: idx})
+        }
+      })
+    }
+    if (this.state.photos && this.state.photos.length){
+      this.state.photos.forEach( async(photo,idx) => {
+        await fetch(photo.image_url, {
+          headers: {
+            'authorization': Cookie.get('JWT_token')
+          }
+        })
+        .then(res => res.arrayBuffer())
+        .then(buff => {
+          this.state.imgBase64s[idx] = 'data:image/jpeg;base64,' + btoa(String.fromCharCode(...new Uint8Array(buff)))
+        })
+      })
+    }
+
+    //reason why here set load to false because to let user to see the content
+    //not blocking user from accessing the page
+    this.setState({isLoading: false})
+
+    
     //fetch positions, roles, offices options
 
     await fetch(`${this.api}/api/position`, {
@@ -96,10 +126,11 @@ class EditEmployeeComponent extends React.Component{
         data.data.forEach(pos => {
           positions.push({
             value: pos.position_no,
-            label: pos.position_name
+            label: pos.position_name,
           })
         })
         this.setState({listPositions: positions})
+        
       }
       else this.setState({info: data.message})
     })
@@ -162,13 +193,11 @@ class EditEmployeeComponent extends React.Component{
     .then(data => {
 
       this.setState({info: data.message, isLoading:false})
+      //TODO: WHEN SUCCESS DELETE, REDIRECT TO EMPLOYEE, USE HISTORY OF REACT ROUTER!
     })
     .catch(err => this.setState({isLoading: false, info: err.toString}));
   }
-  handleClickDeletePhotos = () => {
 
-  }
-  
   handleClickClearSession = () => {
     if (!window.confirm("Are you sure want to clear session of this employee?")) return;
     
@@ -196,7 +225,50 @@ class EditEmployeeComponent extends React.Component{
     .then(data => this.setState({ info: data.message}))
     .catch(err => this.setState({ info: err.toString()}))
   }
+  toggleModalProfilePictures = () => {
+    this.setState({showModalProfilePictures: !this.state.showModalProfilePictures})
+  }
+  setProfilePicture = (idx) => {
+    let picData = new URLSearchParams();
+    picData.set('employee_photo_no', this.state.photos[idx].employee_photo_no)
+    
+    fetch(`${this.api}/api/employee/face/${this.props.match.params.id}`, {
+      body: picData,
+      method: 'PUT',
+      headers: {
+        'authorization': Cookie.get('JWT_token')
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.message.indexOf('updated')!==-1) this.setState({selectedPhotoIdx: idx})
+      
+    })
 
+  }
+  handleClickDeletePhotos = (id) => {
+    this.setState({isLoading: true})
+    fetch(`${this.api}/api/employee/face/${this.props.match.params.id}`, {
+      method: "DELETE",
+      headers:{
+        'authorization': Cookie.get('JWT_token')
+      }
+    })
+    .then(res => res.json())
+    .then( data =>{
+      this.setState({info: data.message, isLoading: false})
+
+      if (data.message.indexOf('removed') !== -1){
+        this.setState({
+          imgBase64s: []
+        })
+      }
+    })
+    .catch(err => this.setState({info: err.toString(), isLoading: false}))
+
+
+    
+  }
   componentDidUpdate(){
 
   }
@@ -210,12 +282,15 @@ class EditEmployeeComponent extends React.Component{
       <>
         {this.state.info && 
           
-          <Modal onClick={() => {}}>
+          <Modal blurry onClick={() => {}}>
             <div className="container-col container-ctr" >
               <h1>{this.state.info}</h1>
               <ButtonPrimary onClick={(e) => {this.setState({info: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
             </div>
           </Modal>
+        }
+        {
+          this.state.showModalProfilePictures && <ModalProfilePictures selectedPhotoIdx={this.state.selectedPhotoIdx} photos={this.state.imgBase64s} onClick={this.setProfilePicture} onClose={this.toggleModalProfilePictures}/>
         }
         {this.state.isLoading && <Loading/>}
         <div className="wrapper-form employee">
@@ -274,7 +349,10 @@ class EditEmployeeComponent extends React.Component{
               <label htmlFor="gender" className="mr-15">Gender</label>
               <input type="radio" name="gender" value="Yes" checked={this.state.gender==="Yes"} onChange={this.handleChange}/> Male
               <input type="radio" name="gender" value="No" checked={this.state.gender==="No"} onChange={this.handleChange}/> Female
-              <ButtonPrimary onClick={this.deleteEmployee} text="DELETE EMPLOYEE" className="button-danger"/>
+              <div className="container-row container-employee-buttons container-ctr mt-15">
+                <ButtonPrimary onClick={this.toggleModalProfilePictures} text="SET PROFILE PICTURE" style={{width: '140px'}} className="button-success"/>
+                <ButtonPrimary onClick={this.deleteEmployee} text="DELETE EMPLOYEE" style={{letterSpacing: '1px'}} className=" ml-15 button-danger"/>
+              </div>
             </div>
             <div className="form-wrapper">
               <div className="container-row container-employee-buttons container-ctr">
@@ -291,6 +369,32 @@ class EditEmployeeComponent extends React.Component{
       </>
     );
   }
+}
+
+const ModalProfilePictures = ({photos, onClick, onClose, selectedPhotoIdx}) => {
+  console.log(photos)
+  
+  let listPhoto = photos.map( (photo,idx) => {
+    let colorRow = idx === selectedPhotoIdx ? 'row-green' : ''
+    return(
+    <div className={colorRow + " attachment-photo container-row spc-bt"} style={{width: '25vw'}} key={idx}>
+      <img src={photo} width="200px" height="auto"/>
+      <ButtonPrimary className="button-success" icon="check" text="SET THIS PHOTO" style={{marginLeft: '-130px',width: '200px'}}  onClick={() => onClick(idx)} />
+    </div>
+
+    )
+  })
+  return(
+    <Modal blurry>
+      <div className="container-col attachment-modal container-ctr scrollable-modal">
+        <h1 className="ta-ctr">Registered Photos</h1>
+
+        {listPhoto}
+        {listPhoto.length ? '' : <p>No Photo</p>}
+        <ButtonPrimary text="CLOSE" onClick={onClose}/>
+      </div>
+    </Modal>
+  )
 }
 
 const EditEmployee = ({match}) => getSession() ? (getSession('allowEmployee') ? <EditEmployeeComponent match={match}/> : <Redirect to="/"/>) : <Redirect to="/"/>

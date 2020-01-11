@@ -1,5 +1,13 @@
 @import '../../Variables.scss';
 
+.scrollable-modal{
+  overflow-y: scroll;
+  height: 90vh;
+  box-sizing: border-box;
+  padding-top: 25vh;
+  padding-left: 2vw;
+  padding-right: 2vw;
+}
 .attachment-photo .form-control{
   width: 10%;
 
