@@ -86,7 +86,7 @@ const Row = ({row, onClick, onDelete}) => {
       <div className="table-data">{row.finish_break ? getTimeStringToTimezone(row.finish_break.local_time, row.finish_break.timezone) : '-'}</div>
       <div className="table-data">{row.late_mins ? row.late_mins + ' minutes' : '-'}</div>
       <div className="table-data">{row.overtime_mins ? row.overtime_mins  + ' minutes' : '-'}</div>
-      <div className="table-data">{'-'}</div>
+      <div className="table-data">{row.remarks ? row.remarks : '-' }</div>
     </div>
   );
 }

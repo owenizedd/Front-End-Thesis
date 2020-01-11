@@ -41,20 +41,24 @@ export default class Employees extends React.Component{
     })
     .catch(err => this.setState({info: err.toString(), isLoading: false}));
 
-    this.state.employees.forEach( (emp,idx) => {
+    this.state.employees.forEach( async(emp,idx) => {
+      let links = []
       if (emp.image_url){
-        fetch(emp.image_url, {
+        await fetch(emp.image_url, {
           headers: {
             'authorization': Cookie.get('JWT_token')
           }
         })
         .then(res => res.arrayBuffer())
-        .then(buff => this.state.img_urls[idx] = 'data:image/jpeg;base64,' + btoa(String.fromCharCode(...new Uint8Array(buff))))
+        .then(buff =>{
+           this.state.img_urls[idx] = 'data:image/jpeg;base64,' + btoa(String.fromCharCode(...new Uint8Array(buff)))
+           this.setState({img_urls: this.state.img_urls})
+        })
         .catch(err => this.setState({info: err.toString() + ' Error while fetching images'}));
       }
       else this.state.img_urls[idx]=null
     })
-    this.setState({})
+
   }
 
 

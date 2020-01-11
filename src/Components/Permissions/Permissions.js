@@ -272,12 +272,12 @@ const PermissionDetail = ({perm, onClose}) => {
    return(
     <Modal blurry>
       <div className="container-col bold">
-        <img src={img_url} height="200px" width="auto" alt="Image is not valid"/>
+        <img src={img_url} width='250px' height="auto" alt="Image is not valid"/>
           <p>ID: {perm.employee_id}</p>
           <p>Name: {perm.employee_name}</p>
           <p>From: {new Date(perm.from_date_time).toDateString()}</p>
           <p>To: {new Date(perm.until_date_time).toDateString()}</p>
-          <div className="container-col ta-left full-width">
+          <div className="container-col ta-left" style={{width: '80%'}}>
             <p>Reason: {perm.permission_reason_name}</p>
             <p>Remarks: {perm.remarks === "null" ? '-' : perm.remarks}</p>
             <p>Description: {perm.description}</p>

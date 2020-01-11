@@ -81,7 +81,7 @@ class Row extends React.Component{
         <div className="table-data">{row.device_employee_name}</div>
         <div className="table-data">{row.office_name}</div>
         <div className="table-data">{row.log_type_name}</div>
-        <div className="table-data">{row.remarks}</div>
+        <div className="table-data">{row.remarks ? row.remarks : ' - '}</div>
         <ButtonPrimary onClick={() => onClick(row.latitude, row.longitude)} style={{width: "100%"}} text="VIEW LOCATION"/>
       </div>
     );

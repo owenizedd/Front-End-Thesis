@@ -179,9 +179,10 @@ export default class AbsenceLogDetails extends React.Component{
     })
     .catch(err => this.setState({ info: err.toString()}));
 
+    this.setState({isLoading: false})
 
     //fetch tableRows data absences
-    this.fetchNewRows();
+    // this.fetchNewRows();
   }
 
 
