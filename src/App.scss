@@ -57,7 +57,10 @@
 }
 
 
-
+.full-width{
+  left: 0 !important;
+  width: 100vw !important;
+}
 
 .form-wrapper:nth-child(even){
   margin-left: auto;
@@ -84,6 +87,10 @@
   width: 100%;
 }
 
+.form-control{
+  cursor: initial;
+}
+
 .form-control.date input{
   width: 21.4vw;
 }
@@ -93,7 +100,9 @@
 .spc-ev{
   justify-content: space-evenly;
 }
-
+.no-wrap{
+  flex-wrap: nowrap !important;
+}
 .spc-bt{
   justify-content: space-between;
 }
@@ -106,7 +115,9 @@
 .ta-ctr{
   text-align: center;
 }
-
+.pd-l-sidebar{
+  padding-left: 21vw;
+}
 .ml-15{
   margin-left: 15px;
 }

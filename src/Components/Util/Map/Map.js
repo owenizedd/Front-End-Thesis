@@ -69,6 +69,7 @@ export default class Map extends React.Component{
   }
 
   handleApiLoaded = ( map) =>{
+    //for able to edit to show polygon, we need these 2 variable to use
     this.setState({ map: map.map, maps: map.maps});
 
   }

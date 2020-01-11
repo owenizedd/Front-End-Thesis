@@ -89,4 +89,6 @@
           align-items: center;
   padding: 15px;
   padding-left: 0px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }

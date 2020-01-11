@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
+import './logged-in.css'
 // import Cookie from 'js-cookie';
 
 import Guest from './Components/Guest/Guest';
@@ -24,7 +25,9 @@ import Report from './Components/Report/Report';
 import Permissions from './Components/Permissions/Permissions';
 import AddPermission from './Components/Permissions/AddPermission/AddPermission';
 import AddRole from './Components/Roles/AddRole/AddRole';
-
+import Cookie from 'js-cookie'
+import Modal from './Components/Util/ModalAndLogin/Modal';
+import ButtonPrimary from './Components/Util/ButtonPrimary/ButtonPrimary';
 class App extends Component {
   state = {
     sidebarIndex: 0,
@@ -34,7 +37,7 @@ class App extends Component {
   
   componentDidMount = () => {
     
-    console.log(`Made with <3 with React.js`)
+    console.log(`Made with <3 with React.js`, Cookie.get('JWT_token'))
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
   }
@@ -54,11 +57,21 @@ class App extends Component {
   render(){
     //change all background to dark purple + padding left for body
     //so that the content wont get covered by sidebar. 
-    this.state.isLoggedIn && require('./logged-in.css');
-    return (
+
+    return(
       <Router>
-        
-        <div id="app" className="app-container" >
+         {this.state.info && 
+          
+          <Modal onClick={() => {}}>
+            <div className="container-col container-ctr" >
+  
+              <h1>{this.state.info}</h1>
+              <img src={this.state.info_image}/>
+              <ButtonPrimary onClick={(e) => {this.setState({info: '', info_image: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
+            </div>
+          </Modal>
+        }
+        <div id="app" className={ "app-container" + (this.state.isLoggedIn ? ' pd-l-sidebar' : '')} >
           {
             getSession() && <Sidebar sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>
           }
@@ -67,56 +80,56 @@ class App extends Component {
               getSession() ?  <Dashboard/> : <Guest toggleLoggedIn={this.toggleLoggedIn} />
             )}/>
             <Route path="/company" exact render={() => (
-              getSession() ? <Company/> : <Redirect to="/"/>
+              getSession() ? (getSession('isCompany') ? <Company/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
-            
+      
             <Route path="/employees" exact render={() => (
-              getSession() ? <Employees/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowEmployee') ? <Employees/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/employees/add" exact render={() => (
-              getSession() ? <AddEmployee/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowEmployee') ? <AddEmployee/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/employees/edit/:id" exact component={EditEmployee}/>
             
             <Route path="/offices" exact render={() => (
-              getSession() ? <Offices/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowOffice') ? <Offices/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>          
             <Route path="/offices/add" exact render={() => (
-              getSession() ? <AddOffice/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowOffice') ? <AddOffice/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/offices/edit/:id" exact component={EditOffice}/>
             
             <Route path="/roles" exact render={() => (
-              getSession() ? <Roles/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowRole') ? <Roles/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/roles/add" exact render={ ()=> (
-              getSession() ? <AddRole/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowRole') ? <AddRole/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/roles/edit/:id" exact component={EditRole}/>
 
             <Route path="/positions" exact render={ () => (
-              getSession() ? <Positions/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowPosition') ? <Positions/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
 
             <Route path="/positions/add" exact render={ ()=> (
-              getSession() ? <AddPosition/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowPosition') ? <AddPosition/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
 
             <Route path="/positions/edit/:id" exact render={EditPosition}/>
             
             <Route path="/absences" exact render={ () => (
-              getSession() ? <AbsenceLogDetails/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowAbsence') ? <AbsenceLogDetails/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
 
             <Route path="/report" exact render={ () => (
-              getSession() ? <Report/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowReport') ? <Report/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
 
             <Route path="/permissions" exact render= { () => (
-              getSession() ? <Permissions/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowPermission') ? <Permissions/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             <Route path="/permissions/add" exact render= { () => (
-              getSession() ? <AddPermission/> : <Redirect to="/"/>
+              getSession() ? (getSession('allowPermission') ? <AddPermission/> : <NotAllowed/>) : <Redirect to="/"/>
             )}/>
             {/* When there is no route match to path, render 404. */}
             <Route path="/" render={() => <h1 className="ta-ctr">404 Not Found.<br/> Unfortunately, we couldn't find the page you're looking for.</h1>} />
@@ -127,4 +140,6 @@ class App extends Component {
   }
 }
 
+
+const NotAllowed = () => (<h1>You are not allowed to access this page.</h1>)
 export default App;

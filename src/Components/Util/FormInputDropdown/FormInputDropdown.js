@@ -27,6 +27,10 @@ export default class FormInputDropdown extends React.Component{
     
   }
   componentDidUpdate(){
+    //add optional with text ' none' to select if component has props of optional
+    if (this.props.options && this.props.options.length && this.props.optional){
+      if (this.props.options[0].value !== null) this.props.options.unshift({value: null, label: '- None -'});
+    }
     if (this.props.value && !this.state.receivedSelectedProps){
       this.setState({selectedOption: this.props.value, receivedSelectedProps: true})
 
@@ -39,7 +43,8 @@ export default class FormInputDropdown extends React.Component{
       }
   }
   render(){ 
-    const { placeholder,  name, className, options } = this.props;
+    let { placeholder,  name, className, options, optional } = this.props;
+
     
     var style={display: 'flex', position: 'relative'}
    

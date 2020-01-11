@@ -121,7 +121,6 @@ export default class AddEmployee extends React.Component{
     .catch(err => this.setState({isLoading: false, info: err.toString()}))
   }
   render(){
-    //TODO: FIX THE WIDTH OF FORMINPUTDATE 
     return(
       <>
         {this.state.info && 

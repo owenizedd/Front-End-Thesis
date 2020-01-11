@@ -3,7 +3,7 @@ import ButtonPrimary from '../ButtonPrimary/ButtonPrimary'
 import './ReportTable.css'
 import { Link } from 'react-router-dom'
 import Cookie from 'js-cookie'
-import { API } from '../common'
+import { API, getTimeStringToTimezone } from '../common'
 
 export default class ReportTable extends React.Component{
   api = API
@@ -35,7 +35,7 @@ export default class ReportTable extends React.Component{
     );
   }
   render(){
-    
+    console.warn(this.props.rows)
     return(
       <>
         {this.props.rows && this.props.rows.length ? 
@@ -63,6 +63,7 @@ const Rows = ({rows, amountOfRows, onClick, onDelete}) => {
         <div className="table-head">Start Work</div>
         <div className="table-head">Finish Work</div>
         <div className="table-head">Start Break</div>
+        <div className="table-head">Finish Break</div>
         <div className="table-head">Late</div>
         <div className="table-head">Overtime</div>
         <div className="table-head">Remarks</div>
@@ -75,15 +76,17 @@ const Rows = ({rows, amountOfRows, onClick, onDelete}) => {
 const Row = ({row, onClick, onDelete}) => {
   // let day = new Date(row.date).toLocaleDateString('default', {weekday: 'long'});
   const color = row.permissions !== null ? "row-green" : row.late_mins > 0 ? "row-orange" : "row-normal";
+  console.log(row);
   return(
     <div className={`container-row report-row ${color}`}>
       <div className="table-data">{row.date}</div>
-      <div className="table-data">{row.start_working ? row.start_working : '-'}</div>
-      <div className="table-data">{row.finish_working ? row.finish_working : '-'}</div>
-      <div className="table-data">{row.start_break ? row.start_break : '-'}</div>
-      <div className="table-data">{row.finish_break ? row.finish_break : '-'}</div>
+      <div className="table-data">{row.start_working ? getTimeStringToTimezone(row.start_working.local_time, row.start_working.timezone) : '-'}</div>
+      <div className="table-data">{row.finish_working ? getTimeStringToTimezone(row.finish_working.local_time, row.finish_working.timezone) : '-'}</div>
+      <div className="table-data">{row.start_break ? getTimeStringToTimezone(row.start_break.local_time, row.start_break.timezone) : '-'}</div>
+      <div className="table-data">{row.finish_break ? getTimeStringToTimezone(row.finish_break.local_time, row.finish_break.timezone) : '-'}</div>
       <div className="table-data">{row.late_mins ? row.late_mins + ' minutes' : '-'}</div>
       <div className="table-data">{row.overtime_mins ? row.overtime_mins  + ' minutes' : '-'}</div>
+      <div className="table-data">{'-'}</div>
     </div>
   );
 }

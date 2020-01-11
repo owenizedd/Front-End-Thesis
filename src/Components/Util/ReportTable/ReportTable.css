@@ -52,10 +52,14 @@
 }
 
 .report-head .table-head:nth-child(7) {
-  margin-left: 155px;
+  margin-left: 25px;
 }
 
-.report-row .table-data:nth-child(7) {
-  width: 250px;
-  margin-left: 50px;
+.report-head .table-head:nth-child(8) {
+  margin-left: 70px;
+}
+
+.report-row .table-data:nth-child(8) {
+  width: 200px;
+  margin-left: 30px;
 }

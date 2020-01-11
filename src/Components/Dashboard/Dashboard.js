@@ -5,75 +5,82 @@ import Card from '../Util/Card/Card';
 import AbsenceTable from '../Util/AbsenceTable/AbsenceTable';
 import Cookie from 'js-cookie';
 import Loading from '../Util/ModalAndLogin/Loading';
-import { API } from '../Util/common';
+import { API, savePrivilege } from '../Util/common';
+import Modal from '../Util/ModalAndLogin/Modal';
+import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
 
 
 export default class Dashboard extends React.Component{
-
+  api = API;
   state={
     amountOfEmployee: null,
     amountOfOffice: null,
     isLoading: false,
     company_name: null,
     address: '-',
-    tableRows: []
+    tableRows: [],
+    info: ''
   }
   
+  showImage = (img) =>{
+    this.setState({info: 'Image Details', info_image: img})
+  }
   componentDidMount = async() => {
     //fetch
     let api = API
-
     this.setState({isLoading: true});
-    await fetch(`${api}/api/office`,{
-      headers: {
-        "authorization": Cookie.get("JWT_token")
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
-      this.setState({
-        amountOfOffice: data.data.length
-      })
-    })
 
-    await fetch(`${api}/api/employee`, {
-      headers: {
-        "authorization": Cookie.get("JWT_token")
+    await fetch(`${api}/api/dashboard`, {
+      headers:{
+        'authorization': Cookie.get('JWT_token')
       }
     })
     .then(res => res.json())
     .then(data => {
-      this.setState({
-        amountOfEmployee: data.data.length,
-        
-      })
-    })
-
-    await fetch(`${api}/api/company`, {
-      headers: {
-        "authorization": Cookie.get("JWT_token")
-      }
-    })
-    .then(res => res.json())
-    .then(data => {
+      console.log(data)
       if (data.data){
-        let address = data.data.address == null ? 'JL. Medan Binjai Km 10,5' : data.data.address;
+        const {allow_manage_absence, allow_manage_employee, allow_manage_office, allow_manage_position} = data.data.role_data;
+        savePrivilege(data.data.is_company, allow_manage_absence, allow_manage_employee, allow_manage_office, allow_manage_position);
+
+        let address = data.data.company_data.address == null ? '-' : data.data.company_data.address;
         if (address.length > 23) address = address.slice(0, 20) + '...';
         this.setState({
-          company_name: data.data.company_name,
+          amountOfOffice: data.data.office_count,
+          amountOfEmployee: data.data.employee_count,
           address: address,
-          isLoading: false,
-        })
-      }
-      else{
-        this.setState({
-          address: "Error while fetching information",
-          isLoading: false,
+          company_name: data.data.company_data.company_name
         })
       }
     })
 
-    //fetch absence data and show 
+
+    //fetch absence data today and show 
+    let params = {
+      from_date: new Date().toISOString().slice(0,10),
+      until_date: new Date().toISOString().slice(0,10)
+    }
+
+    
+    var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+    queryString.length > 0 && (queryString = '?' + queryString);
+    console.log(queryString)
+    await fetch(`${this.api}/api/absence${queryString}`, {
+      headers: {
+        'authorization': Cookie.get('JWT_token')
+      }
+    })
+    .then(res => console.log(res) || res.json())
+    .then(data => {
+      console.log(data)
+      if (data.data){
+        // this.setState({info: data.message})
+        console.log(data.data)
+        this.setState({tableRows: data.data})
+      }
+      else this.setState({info: data.message})
+    })
+    .catch(err => this.setState({info: err.toString()}))
+    this.setState({isLoading: false});
   }
 
   render(){
@@ -82,13 +89,23 @@ export default class Dashboard extends React.Component{
     return(
       <>
         {this.state.isLoading && <Loading/>}
+        {this.state.info && 
+          <Modal onClick={() => {}}>
+            <div className="container-col container-ctr" >
+
+              <h1>{this.state.info}</h1>
+              <img src={this.state.info_image}/>
+              <ButtonPrimary onClick={(e) => {this.setState({info: '', info_image: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
+            </div>
+          </Modal>
+        }
         <Summary 
           companyName={this.state.company_name}
           address={this.state.address} 
           amountOfEmployee={this.state.amountOfEmployee}
           amountOfOffice={this.state.amountOfOffice}
         />
-        <AbsenceTable amountOfRows="5" tableRows={this.state.tableRows}/>
+        <AbsenceTable onClickImage={this.showImage} amountOfRows="5" tableRows={this.state.tableRows}/>
         
       </>
     )
@@ -101,16 +118,16 @@ const Summary = ({companyName, address, amountOfEmployee, amountOfOffice}) => {
     <div className="summary container-column">
       <h1 className="header ta-ctr">Summary</h1>
       <div className="container-row spc-ev">
-        <Card width="250px" height="200px" className="m-5">
+        <Card width="250px" height="220px" className="m-5">
           <h3 className="card-title">Company</h3>
           <h2 >{companyName}</h2>
           <p>{address}</p>
         </Card>
-        <Card width="250px" height="200px" className="m-5">
+        <Card width="250px" height="220px" className="m-5">
           <h3 className="card-title">Employee</h3>
           <p className="header">{amountOfEmployee}</p>
         </Card >
-        <Card width="250px" height="200px" className="m-5">
+        <Card width="250px" height="220px" className="m-5">
           <h3 className="card-title">Office</h3>
           <p className="header">{amountOfOffice}</p>
         </Card>

@@ -155,7 +155,7 @@ class EditRoleComponent extends React.Component{
 }
 
 
-const EditRole = ({match}) => !getSession() ?  <Redirect to="/"/> : <EditRoleComponent match={match}/>
+const EditRole = ({match}) => getSession() ? (getSession('allowRole') ? <EditRoleComponent match={match}/> : <Redirect to="/"/>) : <Redirect to="/"/>
 
 
 export default EditRole

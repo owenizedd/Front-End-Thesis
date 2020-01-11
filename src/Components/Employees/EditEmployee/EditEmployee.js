@@ -252,7 +252,7 @@ class EditEmployeeComponent extends React.Component{
             </div>
             <div className="form-wrapper">
               <label htmlFor="role_no">Role</label>
-              <FormInputDropdown options={this.state.listRoles} value={roleValue} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
+              <FormInputDropdown optional options={this.state.listRoles} value={roleValue} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="address">Address</label>
@@ -293,6 +293,6 @@ class EditEmployeeComponent extends React.Component{
   }
 }
 
-const EditEmployee = ({match}) => !getSession() ? <Redirect to="/"/> :<EditEmployeeComponent match={match}/> 
+const EditEmployee = ({match}) => getSession() ? (getSession('allowEmployee') ? <EditEmployeeComponent match={match}/> : <Redirect to="/"/>) : <Redirect to="/"/>
 
 export default EditEmployee

@@ -6,7 +6,7 @@ import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
 
 import './Guest.css';
 
-import {convertToForm, saveSidebarState, API} from '../Util/common';
+import {convertToForm, saveSidebarState, API, LOGO} from '../Util/common';
 import Loading from '../Util/ModalAndLogin/Loading';
 import Modal from '../Util/ModalAndLogin/Modal';
 //username
@@ -97,7 +97,10 @@ export default class Guest extends React.Component{
       })
       .then(res => res.json())
       .then(data => {
-        that.setState({isLoading: false});
+        console.log(data)
+        
+        that.setState({isLoading: false, info: data.message});
+        that.navToLogin();
       })
     }
     else{
@@ -106,14 +109,57 @@ export default class Guest extends React.Component{
   }
 
   handleClickForgot = () => {
+    let forgotPasswordData = convertToForm(this.formRef.current);
+    this.setState({isLoading: true});
+
+    fetch(`${this.api}/forgotpassword`, {
+      method: 'POST',
+      body: forgotPasswordData
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({info: data.message, isLoading: false})
+      if (data.message.indexOf('sent a message') !== -1){
+        this.navToChangePassword();
+      }
+    })
+    .catch(err => this.setState({info: err.toString(), isLoading: false}))
 
   }
 
+  handleClickChangePassword = () => {
+    let changePasswordData = convertToForm(this.formRef.current);
+    this.setState({isLoading: true});
+
+    fetch(`${this.api}/changepassword`, {
+      method: 'POST',
+      body: changePasswordData
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({info: data.message, isLoading: false})
+      if (data.message.indexOf('success') !== -1){
+        this.navToLogin();
+      }
+    })
+    .catch(err => this.setState({info: err.toString(), isLoading: false}))
+  }
+
+  navToChangePassword = () => {
+    this.setState({
+      login: false,
+      forgot: false,
+      register: false,
+      changePass: true
+    })
+
+  }
   navToReset = () => {
     this.setState({
       login: false,
       forgot: true,
-      register: false
+      register: false,
+      changePass: false,
     })
   }
 
@@ -122,6 +168,7 @@ export default class Guest extends React.Component{
       login: false,
       forgot: false,
       register: true,
+      changePass: false,
     });
 
     
@@ -131,9 +178,11 @@ export default class Guest extends React.Component{
     this.setState({
       login: true,
       register: false,
-      forgot: false
+      forgot: false,
+      changePass: false
     })
   }
+
   componentDidUpdate(){
   }
 
@@ -144,6 +193,9 @@ export default class Guest extends React.Component{
     }
     if (this.state.forgot){
       guest = <ForgotPassword formRef={this.formRef} navToLogin={this.navToLogin} handleClickForgot={this.handleClickForgot} handleChange={this.handleChange}/>
+    }
+    if (this.state.changePass){
+      guest = <ChangePassword formRef={this.formRef} navToLogin={this.navToLogin} handleClickChangePassword={this.handleClickChangePassword} handleChange={this.handleChange}/>
     }
     return(
       <div className="login-container">
@@ -164,10 +216,11 @@ export default class Guest extends React.Component{
 }
 
 //stateless components (presentational)
+
 function Login({formRef, handleChange, handleClicklogin, navToRegister, navToReset}){
   return(
     <div className="form-container">
-      <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="bs" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
@@ -182,9 +235,10 @@ function Login({formRef, handleChange, handleClicklogin, navToRegister, navToRes
 function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
   return(
     <div className="form-container">
-      <img alt="logo" className="logo" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="logo" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
+        <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email"/>
         <ButtonPrimary text="RESET PASSWORD" onClick={handleClickForgot}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
@@ -196,7 +250,7 @@ function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
 function Register({formRef, handleChange, handleClickRegister, navToLogin}){
   return(
     <div className="form-container">
-      <img alt="logo" className="bs" src="assets/images/logo_svg.svg" width="300px" height="auto"/>
+      <img alt="logo" className="bs" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
         <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
         <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
@@ -205,6 +259,24 @@ function Register({formRef, handleChange, handleClickRegister, navToLogin}){
         <FormInput  type="text" name="company_name" onChange={handleChange} placeholder="Company Name"/>
         <FormInput  type="text" name="company_address" onChange={handleChange} placeholder="Company Address"/>
         <ButtonPrimary text="REGISTER" onClick={handleClickRegister}/>
+        <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
+      </form>
+    </div>
+  )
+}
+
+function ChangePassword({formRef, handleChange, handleClickChangePassword, navToLogin}){
+
+  return(
+    <div className="form-container">
+      <img alt="logo" className="bs" src={LOGO} width="300px" height="auto"/>
+      <h3>We've sent the code to your E-mail.<br/> Please insert the code in the form below.</h3>
+      <form ref={formRef}>
+
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
+        <FormInput required type="text" name="code" onChange={handleChange} placeholder="Code"/>
+        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Your New Password"/>
+        <ButtonPrimary text="CHANGE MY PASSWORD" onClick={handleClickChangePassword}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
     </div>

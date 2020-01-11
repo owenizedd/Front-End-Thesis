@@ -58,11 +58,12 @@ export default class FormInputDate extends React.Component{
     }
   }
   render(){ 
-    const { onChange, name, icon, className} = this.props;
+    const { onChange, name, icon, className, width} = this.props;
  
-    var style={display: 'flex', position: 'relative', padding: ''}
+    var cstyle={display: 'flex', position: 'relative', padding: ''}
+    if (width) cstyle.width=width;
     return (
-      <div className={`form-control date`} style={style} className={className}>
+      <div className={`form-control date`} style={cstyle} className={className}>
         <ReactDatePicker dateFormat="d-MM-yyyy" selected={new Date(this.state.value)} className="form-input" name={name} onChange={date => {
           
           this.handleChange(date, onChange);

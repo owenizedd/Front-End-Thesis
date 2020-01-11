@@ -92,7 +92,7 @@ export default class AddPosition extends React.Component{
             </div>
             <div className="form-wrapper">
               <label htmlFor="superior_position_no">Superior No.</label>
-              <FormInputDropdown options={this.state.listPositions} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
+              <FormInputDropdown optional options={this.state.listPositions} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="">Maximum Days Leave Anually</label>

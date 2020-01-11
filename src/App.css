@@ -74,6 +74,11 @@
       flex-shrink: 0;
 }
 
+.full-width {
+  left: 0 !important;
+  width: 100vw !important;
+}
+
 .form-wrapper:nth-child(even) {
   margin-left: auto;
 }
@@ -98,6 +103,10 @@
   width: 100%;
 }
 
+.form-control {
+  cursor: initial;
+}
+
 .form-control.date input {
   width: 21.4vw;
 }
@@ -110,6 +119,11 @@
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
+}
+
+.no-wrap {
+  -ms-flex-wrap: nowrap !important;
+      flex-wrap: nowrap !important;
 }
 
 .spc-bt {
@@ -128,6 +142,10 @@
 
 .ta-ctr {
   text-align: center;
+}
+
+.pd-l-sidebar {
+  padding-left: 21vw;
 }
 
 .ml-15 {

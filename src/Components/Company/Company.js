@@ -109,9 +109,13 @@ export default class Company extends React.Component{
         })
         if (data.company_work_hours){
           for(let i = 0; i < data.company_work_hours.length; i++){
+            let startTime = '';
+            let endTime = '';
+            if (data.company_work_hours[i].start_time !== null) startTime = data.company_work_hours[i].start_time.slice(0,5);
+            if (data.company_work_hours[i].end_time !== null) endTime = data.company_work_hours[i].end_time.slice(0,5)
             this.setState({
-              ['start_work_day_' + data.company_work_hours[i].day]: data.company_work_hours[i].start_time.slice(0,5),
-              ['end_work_day_' + data.company_work_hours[i].day]: data.company_work_hours[i].end_time.slice(0,5),
+              ['start_work_day_' + data.company_work_hours[i].day]: startTime,
+              ['end_work_day_' + data.company_work_hours[i].day]: endTime,
             })
           }
         }
@@ -230,7 +234,7 @@ export default class Company extends React.Component{
               </div>
             </div>
             <div className="form-wrapper form-work-day mt-15">
-              <label htmlFor="email">Monday Work Day (Hour:Minute)</label>
+              <label htmlFor="email">Sunday Work Day (Hour:Minute)</label>
               <div className="container-row container-work-day container-ctr">
                 <FormInput required type="text" onChange={this.handleChange} value={this.state.start_work_day_7} name="start_work_day_7"/>
                 <span className="ml-15 mr-15">to</span>

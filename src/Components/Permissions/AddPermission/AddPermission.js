@@ -18,13 +18,17 @@ export default class AddPermission extends React.Component{
     start_range: new Date(),
     end_range: new Date(),
     photos: [],
+    permission_date: "one"
+
   }
 
   handleClick = async() => {
     this.setState({isLoading: true})
     try{
       let attachmentData = new URLSearchParams();
-      if (this.state.photos[0].indexOf('jpeg') !== -1) {
+      //TODO: BUG probably .jpg
+      
+      if (this.state.photos[0].indexOf('jpeg') === -1) {
         this.setState({isLoading: false, info: `The image you're trying to submit is not in the correct .jpg / .jpeg format`})
         return;
       }
@@ -54,12 +58,12 @@ export default class AddPermission extends React.Component{
       permissionData.set('permission_reason_no', this.state.permission_reason_no.value)
       permissionData.set('employee_no', this.state.employee_no.value)
       if (this.state.permission_date === "one"){
-        permissionData.set('from_date_time', new Date(new Date().toLocaleDateString('en-US')).toJSON())
-        permissionData.set('until_date_time', new Date(new Date( new Date(new Date().getTime() + 1000 * 60 * 60 * 24).toLocaleDateString('en-US') ).toJSON()).toJSON() )
+        permissionData.set('from_date_time', new Date(this.state.start_range).toISOString().slice(0,10) )
+        permissionData.set('until_date_time', new Date(this.state.start_range).toISOString().slice(0,10) )
       }
       else{
-        permissionData.set('from_date_time', this.state.start_range.toJSON());
-        permissionData.set('until_date_time', this.state.end_range.toJSON())
+        permissionData.set('from_date_time', new Date(this.state.start_range).toISOString().slice(0,10));
+        permissionData.set('until_date_time', new Date(this.state.end_range).toISOString().slice(0,10))
       }
       permissionData.set('absence_photo_no', this.state.absence_photo_no)
 
@@ -138,7 +142,7 @@ export default class AddPermission extends React.Component{
     }
   }
   resetFilterByDate = () => {
-    this.setState({start_range: null, end_range: null})
+    this.setState({start_range: new Date(), end_range: new Date()})
 
     this.toggleDateRangeModal()
   }
@@ -206,7 +210,7 @@ export default class AddPermission extends React.Component{
           <Modal blurry onClick={() => {}}>
             
             <div className="container-col container-ctr" >
-              {this.state.photos[0].length && <img height="200px" width="auto" src={this.state.photos[0]} alt=""/>}
+              {this.state.photos[0] && this.state.photos[0].length && this.state.info.indexOf("saved") !== -1 && this.state.info.indexOf("saved") == -1 && <img height="200px" width="auto" src={this.state.photos[0]} alt=""/>}
               <h1>{this.state.info}</h1>
               <ButtonPrimary onClick={(e) => {this.setState({info: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
             </div>
@@ -216,7 +220,7 @@ export default class AddPermission extends React.Component{
         {this.state.showDateRange && <DateRangeModal initialValueEnd={this.state.end_range} initialValueStart={this.state.start_range} onClearFilter={this.resetFilterByDate} onChange={this.handleChange} onClick={this.filterAbsencesByDate} /> }
         {this.state.showAttachmentsModal && <AttachmentsModal photos={this.state.photos} onClose={this.toggleAttachmentsModal} addPhoto={this.handleChange} deletePhoto={this.handleDeletePhoto}/>}
         <h1 className="ta-ctr">Add a Permission</h1>
-        <div className={`wrapper-form form-permission ${this.state.permission_date==="custom" ? "" : "uneven-form"}`}>
+        <div className={`wrapper-form form-permission`}>
           <form ref="addPermissionForm" className="container-row">
             <div className="form-wrapper">
               <label htmlFor="employee_no">Employee's Name</label>
@@ -230,8 +234,8 @@ export default class AddPermission extends React.Component{
             <div className="form-wrapper mt-15">
               <label  htmlFor="permission_date">Permission Date</label>
               <br/>
-              <input type="radio" onChange={this.handleChange} name="permission_date" value="one"/> One Day
-              <input type="radio" onChange={this.handleChange} name="permission_date" value="custom"/> Custom Duration
+              <input type="radio" onChange={this.handleChange} checked={this.state.permission_date==="one"} name="permission_date" value="one"/> One Day
+              <input type="radio" onChange={this.handleChange} checked={this.state.permission_date==="custom"} name="permission_date" value="custom"/> Custom Duration
             
             </div>
             <div className="form-wrapper">
@@ -239,8 +243,15 @@ export default class AddPermission extends React.Component{
               <FormInput type="text" onChange={this.handleChange} name="description"/>
             </div>
             {
+              this.state.permission_date === "one" &&
+              <div className="form-wrapper" >
+                 <FormInputDate width= '80%' onChange={this.handleChange} icon="fa-calendar" name="start_range" hasInitialValue value={this.state.start_range.toJSON()} className="date-modal mt-15"/>
+                 {/* <label>From Time (Hour:Minute)</label> */}
+              </div>
+            }
+            {
               this.state.permission_date === "custom" && 
-              <div className="form-wrapper">
+              <div className="form-wrapper mt-15">
                 <ButtonPrimary text="SET DATE RANGE" className="button-danger" onClick={ this.toggleDateRangeModal } />
               </div>
             }

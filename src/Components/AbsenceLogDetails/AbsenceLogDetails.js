@@ -86,8 +86,8 @@ export default class AbsenceLogDetails extends React.Component{
     }
   }
   resetFilterByDate = () => {
-    this.setState({start_range: null, end_range: null})
-    this.fetchNewRows();
+    this.setState({start_range: null, end_range: null, tableRows: []})
+    // this.fetchNewRows();
     this.toggleDateRangeModal()
   }
 
@@ -192,8 +192,8 @@ export default class AbsenceLogDetails extends React.Component{
     //make sure it is not undefined before accessing further property such as function or key
     // by using && operator
     let params = {
-      from_date: this.state.start_range && this.state.start_range.toJSON(),
-      until_date: this.state.end_range && this.state.end_range.toJSON(),
+      from_date: this.state.start_range && this.state.start_range.toISOString().slice(0,10),
+      until_date: this.state.end_range && this.state.end_range.toISOString().slice(0,10),
       employee_no: this.state.filterEmployeeValue && this.state.filterEmployeeValue.value,
       office_no: this.state.filterOfficeValue && this.state.filterOfficeValue.value,
       position_no: this.state.filterOfficeValue && this.state.filterPositionValue.value,
@@ -214,13 +214,17 @@ export default class AbsenceLogDetails extends React.Component{
     .then(res => res.json())
     .then(data => {
       if (data.data){
-        // this.setState({info: data.message})
+        // this.setState({info: data.message}))
         this.setState({tableRows: data.data})
       }
       else this.setState({info: data.message})
     })
     .catch(err => this.setState({info: err.toString()}))
     this.setState({isLoading: false});
+  }
+
+  showImage = (img) =>{
+    this.setState({info: 'Image Details', info_image: img})
   }
 
   
@@ -234,8 +238,10 @@ export default class AbsenceLogDetails extends React.Component{
           
           <Modal onClick={() => {}}>
             <div className="container-col container-ctr" >
+
               <h1>{this.state.info}</h1>
-              <ButtonPrimary onClick={(e) => {this.setState({info: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
+              <img src={this.state.info_image}/>
+              <ButtonPrimary onClick={(e) => {this.setState({info: '', info_image: ''}); e.stopPropagation(); }} text={ "CLOSE"}/>
             </div>
           </Modal>
         }
@@ -250,7 +256,7 @@ export default class AbsenceLogDetails extends React.Component{
           <ButtonPrimary text="SET DATE RANGE" style={{width: '90%'}} onClick={ this.toggleDateRangeModal } />
           <ButtonPrimary icon="filter" style={{width: '30%'}} onClick={this.toggleFilterModal} />
         </div>
-        <AbsenceTable  tableRows={this.state.tableRows} showMap={this.showMap} />
+        <AbsenceTable onClickImage={this.showImage} tableRows={this.state.tableRows} showMap={this.showMap} />
       </>
     )
   }

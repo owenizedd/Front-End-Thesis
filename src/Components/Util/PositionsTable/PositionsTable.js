@@ -84,11 +84,13 @@ const Row = ({row, onClick, onDelete}) => {
       <div className="table-data">{row.leave_valid_after_days}</div>
       <div className="table-data">{row.late_tolerance_mins}</div>
       <div className="table-data">{row.leave_valid_for_days}</div>
-
-      <Link  to={`/positions/edit/${row.position_no}`}>
-       <ButtonPrimary onClick={onClick} style={{width: "150px"}} text="EDIT"/>
-      </Link>
-      <ButtonPrimary onClick={() => onDelete(row.position_no)} style={{width: "125px"}} className="button-danger" text="DELETE"/>
+      <div className="container-row spc-ev no-wrap" style={{width: '100%'}}>
+        <Link  to={`/positions/edit/${row.position_no}`}>
+        <ButtonPrimary applyToParent onClick={onClick} style={{width: "125px"}} className="mr-15" text="EDIT"/>
+        </Link>
+        <div className="mr-15"></div>
+        <ButtonPrimary applyToParent onClick={() => onDelete(row.position_no)} style={{width: "125px"}} className="button-danger" text="DELETE"/>
+      </div>
     </div>
   );
 }

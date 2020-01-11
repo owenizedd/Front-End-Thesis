@@ -35,13 +35,13 @@ class EditOfficeComponent extends React.Component{
   handleClick = () => {
     this.setState({isLoading: true});
     let officeData = convertToForm(this.refs.editOfficeForm);
+    
     for(let i = 0; i < this.state.positions.length; i++){
-      officeData.append('longitude', this.state.positions[i].longitude);
-      officeData.append('latitude', this.state.positions[i].latitude);
+      officeData.append('longitude', this.state.positions[i].lng);
+      officeData.append('latitude', this.state.positions[i].lat);
     }
 
-    officeData.forEach( (val,key) => {
-    })
+
     fetch(`${this.api}/api/office/${this.props.match.params.id}`, {
       method: "PUT",
       body: officeData,
@@ -141,6 +141,7 @@ class EditOfficeComponent extends React.Component{
 
 const EditOffice =  ({match}) => {
   if (!getSession()) return <Redirect to="/"/>
+  else if (!getSession('allowOffice')) return <Redirect to="/"/>
   else return <EditOfficeComponent match={match}/>
 }
 export default EditOffice 

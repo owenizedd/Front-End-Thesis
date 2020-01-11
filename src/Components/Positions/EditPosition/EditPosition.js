@@ -42,6 +42,28 @@ class EditPositionComponent extends React.Component{
 
   componentDidMount = () => {
     this.setState({isLoading: true});
+
+   fetch(`${this.api}/api/position`, {
+      headers: {
+        'authorization': Cookie.get('JWT_token')
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.data){
+        let positions = []
+        data.data.forEach(pos => {
+          positions.push({
+            value: pos.position_no,
+            label: pos.position_id + ' | ' + pos.position_name
+          })
+        })
+        this.setState({listPositions: positions})
+      }
+      else this.setState({info: data.message})
+    })
+    .catch( err => this.setState({ info: err.toString()}))
+
     fetch(`${this.api}/api/position/${this.props.match.params.id}`, {
       headers: {
         'authorization': Cookie.get('JWT_token'),
@@ -123,7 +145,7 @@ updated_on: null
             </div>
             <div className="form-wrapper">
               <label htmlFor="superior_position_no">Superior No.</label>
-              <FormInputDropdown value={this.state.superior_position_no} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
+              <FormInputDropdown optional options={this.state.listPositions} value={this.state.superior_position_no} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
               <label htmlFor="leave_quota">Maximum Days Leave Anually</label>
@@ -143,26 +165,26 @@ updated_on: null
             </div>
             <div className="form-wrapper mt-15">
               <label htmlFor="">Flexible Work Hours</label>
-              <input type="radio" value="Yes" name="is_flexible_work_hours"   checked={this.state.is_flexible_work_hours==="Yes"}/> Yes
-              <input type="radio" value="0" name="is_flexible_work_hours"   checked={this.state.is_flexible_work_hours==="0"}/> No
+              <input type="radio" value="Yes" name="is_flexible_work_hours" onChange={this.handleChange}   checked={this.state.is_flexible_work_hours==="Yes"}/> Yes
+              <input type="radio" value="0" name="is_flexible_work_hours"  onChange={this.handleChange}   checked={this.state.is_flexible_work_hours==="0"}/> No
               <br/>
               <label htmlFor="">Use Company Settings</label>
-              <input type="radio" value="Yes" name="is_follow_company_settings"   checked={this.state.is_is_follow_company_settings==="Yes"}/> Yes
-              <input type="radio" value="0" name="is_follow_company_settings"   checked={this.state.is_follow_company_settings==="0"}/> No
+              <input type="radio" value="Yes" name="is_follow_company_settings"  onChange={this.handleChange}   checked={this.state.is_follow_company_settings==="Yes"}/> Yes
+              <input type="radio" value="0" name="is_follow_company_settings" onChange={this.handleChange}    checked={this.state.is_follow_company_settings==="0"}/> No
             </div>
             <div className="form-wrapper">
             <label htmlFor="">Must Absence at Designated Office</label>
-              <input type="radio" value="Yes" name="must_same_office" checked={this.state.is_must_same_office==="Yes"}/> Yes
-              <input type="radio" value="0" name="must_same_office" checked={this.state.must_same_office==="0"}/> No
+              <input type="radio" value="Yes" name="must_same_office" onChange={this.handleChange}  checked={this.state.must_same_office==="Yes"}/> Yes
+              <input type="radio" value="0" name="must_same_office"  onChange={this.handleChange} checked={this.state.must_same_office==="0"}/> No
               <br/>
               <label htmlFor="">Absence by Photo</label>
-              <input type="radio" value="Yes" name="must_photo"  checked={this.state.must_photo==="Yes"}/> Yes
-              <input type="radio" value="0" name="must_photo" checked={this.state.must_photo==="0"}/> No
+              <input type="radio" value="Yes" name="must_photo" onChange={this.handleChange}   checked={this.state.must_photo==="Yes"}/> Yes
+              <input type="radio" value="0" name="must_photo" onChange={this.handleChange}  checked={this.state.must_photo==="0"}/> No
             </div>
             <div className="form-wrapper">
             <label htmlFor="">Allow Use Other Device</label>
-              <input type="radio" value="Yes" name="allow_nebeng" checked={this.state.allow_nebeng==="Yes"} /> Yes
-              <input type="radio" value="0" name="allow_nebeng"  checked={this.state.allow_nebeng==="0"}/> No
+              <input type="radio" value="Yes" name="allow_nebeng"  onChange={this.handleChange} checked={this.state.allow_nebeng==="Yes"} /> Yes
+              <input type="radio" value="0" name="allow_nebeng"  onChange={this.handleChange}  checked={this.state.allow_nebeng==="0"}/> No
             </div>
             <div className="form-wrapper">
               <ButtonPrimary text="SUBMIT" onClick={this.handleClick}/>
@@ -175,7 +197,7 @@ updated_on: null
 }
 
 const EditPosition = ({match}) => (
-  getSession() ? <EditPositionComponent match={match}/> : <Redirect to="/"/>
+  getSession() ? (getSession('allowPosition') ? <EditPositionComponent match={match}/> : <Redirect to="/"/>) : <Redirect to="/"/>
 )
 
 export default EditPosition
