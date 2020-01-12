@@ -31,8 +31,9 @@ export default class FormInputDropdown extends React.Component{
     if (this.props.options && this.props.options.length && this.props.optional){
       if (this.props.options[0].value !== null) this.props.options.unshift({value: null, label: '- None -'});
     }
-    if (this.props.value && !this.state.receivedSelectedProps){
-      this.setState({selectedOption: this.props.value, receivedSelectedProps: true})
+    if (this.props.value && typeof this.props.value === "object" && !this.state.receivedSelectedProps){
+      let value = this.props.value;
+      this.setState({selectedOption: value, receivedSelectedProps: true})
 
     }
     //logic for prevent  sending data repeteadly to parent component

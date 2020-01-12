@@ -66,7 +66,7 @@ const Rows = ({rows, amountOfRows, onClick, onDelete}) => {
         <div className="table-head">Finish Break</div>
         <div className="table-head">Late</div>
         <div className="table-head">Overtime</div>
-        <div className="table-head">Remarks</div>
+        {/* <div className="table-head">Remarks</div> */}
       </div>
       {dataRows}
     </>
@@ -76,19 +76,38 @@ const Rows = ({rows, amountOfRows, onClick, onDelete}) => {
 const Row = ({row, onClick, onDelete}) => {
   // let day = new Date(row.date).toLocaleDateString('default', {weekday: 'long'});
   const color = row.permissions !== null ? "row-green" : row.late_mins > 0 ? "row-orange" : "row-normal";
-  console.log(row);
+  const weekend = new Date(row.date).getDay()===6 || new Date(row.date).getDay()===0
   return(
     <div className={`container-row report-row ${color}`}>
-      <div className="table-data">{row.date}</div>
-      <div className="table-data">{row.start_working ? getTimeStringToTimezone(row.start_working.local_time, row.start_working.timezone) : '-'}</div>
-      <div className="table-data">{row.finish_working ? getTimeStringToTimezone(row.finish_working.local_time, row.finish_working.timezone) : '-'}</div>
-      <div className="table-data">{row.start_break ? getTimeStringToTimezone(row.start_break.local_time, row.start_break.timezone) : '-'}</div>
-      <div className="table-data">{row.finish_break ? getTimeStringToTimezone(row.finish_break.local_time, row.finish_break.timezone) : '-'}</div>
-      <div className="table-data">{row.late_mins ? row.late_mins + ' minutes' : '-'}</div>
-      <div className="table-data">{row.overtime_mins ? row.overtime_mins  + ' minutes' : '-'}</div>
-      <div className="table-data">{row.remarks ? row.remarks : '-' }</div>
+      <div className={"table-data" + (weekend? " red" : '')}>{new Date(row.date).toString().slice(0,15)}</div>
+      {
+        row.permissions === null ? 
+          (
+            row.start_working || row.finish_working || row.start_break || row.finish_break || row.late_mins || row.overtime ?
+              <>
+                <div className="table-data">{row.start_working ? getTimeStringToTimezone(row.start_working.local_time, row.start_working.timezone).slice(16,32) : '-'}</div>
+                <div className="table-data">{row.finish_working ? getTimeStringToTimezone(row.finish_working.local_time, row.finish_working.timezone).slice(16,32) : '-'}</div>
+                <div className="table-data">{row.start_break ? getTimeStringToTimezone(row.start_break.local_time, row.start_break.timezone).slice(16,32) : '-'}</div>
+                <div className="table-data">{row.finish_break ? getTimeStringToTimezone(row.finish_break.local_time, row.finish_break.timezone).slice(16,32) : '-'}</div>
+                <div className="table-data">{row.late_mins ? row.late_mins + ' minutes' : '-'}</div>
+                <div className="table-data">{row.overtime_mins ? row.overtime_mins  + ' minutes' : '-'}</div>
+                {/* <div className="table-data">{row.remarks ? row.remarks : '-' }</div> */}
+              </>
+              :
+              <div className="container-col" style={{width: '100%'}}>
+                <p>No Absence Data</p>
+              </div>
+          )
+        :
+        
+          <div className="container-col" style={{width: '100%'}}>
+            <h3 style={{margin: 0, marginBottom: '5px'}}>{row.permissions.permission_reason_name}</h3>
+            <h4  style={{margin: 0}}>{row.permissions.description ? row.permissions.description : '-'}</h4>
+          </div>
+        
+      }
     </div>
-  );
+  )
 }
 
 // day: "1"

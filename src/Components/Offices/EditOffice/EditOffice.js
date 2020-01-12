@@ -37,8 +37,8 @@ class EditOfficeComponent extends React.Component{
     let officeData = convertToForm(this.refs.editOfficeForm);
     
     for(let i = 0; i < this.state.positions.length; i++){
-      officeData.append('longitude', this.state.positions[i].lng);
-      officeData.append('latitude', this.state.positions[i].lat);
+      officeData.append('longitude', this.state.positions[i].lng || this.state.positions[i].longitude );
+      officeData.append('latitude', this.state.positions[i].lat || this.state.positions[i].latitude );
     }
 
 

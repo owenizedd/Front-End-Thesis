@@ -69,7 +69,6 @@ export default class Permissions extends React.Component{
       })
     }
     else{
-      console.log('SEKALI SAJA')
       this.setState({info: '', info_content: null, isLoading: true});
 
       let sendData = new URLSearchParams();
@@ -209,7 +208,6 @@ const RequestsCard = ({onSubmit, permissions, viewAttachment}) => {
 
 const ProcessedCard = ({permissions, showDetail}) => {
   const card = permissions.map(perm => {
-    console.log(perm)
     return(
       <Card width="325px" height="200px" className="container-col container-ctr card-permission">
         <p>{perm.employee_name}</p>

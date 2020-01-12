@@ -40,10 +40,10 @@ class EditPositionComponent extends React.Component{
 
   }
 
-  componentDidMount = () => {
+  componentDidMount = async() => {
     this.setState({isLoading: true});
 
-   fetch(`${this.api}/api/position`, {
+   await fetch(`${this.api}/api/position`, {
       headers: {
         'authorization': Cookie.get('JWT_token')
       }
@@ -72,7 +72,7 @@ class EditPositionComponent extends React.Component{
       }
     })
     .then(res => res.json())
-    .then(data => {
+    .then( async(data) => {
       /*
       position_no: "8"
 company_no: "1"
@@ -95,7 +95,7 @@ updated_on: null
  */
       if (data.data){
         data = data.data;
-        this.setState({
+        await this.setState({
           position_id: data.position_id,
           position_name: data.position_name,
           superior_position_no: data.superior_position_no,
@@ -110,6 +110,8 @@ updated_on: null
           late_tolerance_mins: data.late_tolerance_mins,
           isLoading: false,   
         })
+        let value = this.state.listPositions.filter(pos => pos.value === this.state.superior_position_no)[0]
+        this.setState({superior_position_no: value})
       }
       else{
         this.setState({info: data.message, isLoading: false});

@@ -91,6 +91,11 @@
   cursor: initial;
 }
 
+.red{
+  color: rgb(255, 134, 134) !important;
+  text-shadow: 1px 2px 3px rgba(0,0,0,.8);
+  
+}
 .form-control.date input{
   width: 21.4vw;
 }

@@ -67,7 +67,7 @@ export default class Report extends React.Component{
       from_date: this.state.start_range && this.state.start_range.toJSON(),
       until_date: this.state.end_range && this.state.end_range.toJSON(),
       employee_no: this.state.selected_employee && this.state.selected_employee.value,
-
+      
     }
 
     //delete if undefined
@@ -142,8 +142,8 @@ export default class Report extends React.Component{
     if (this.state.rows.length){
       //accumulate late_mins
       savedPermission={}
-      let lateDays = this.state.rows.reduce((previousValue, currentValue) => previousValue + currentValue.late_mins > 0 ? 1 : 0, 0);
-      let permissionDays = this.state.rows.reduce((previousValue, currentValue) => previousValue + (currentValue.permissions !== null ? getDays(currentValue.permissions.from_date_time, currentValue.permissions.until_date_time) : 0 ), 0);
+      let lateDays = this.state.rows.filter(row => row.late_mins).length
+      let permissionDays = this.state.rows.reduce((previousValue, currentValue) => previousValue + (currentValue.permissions !== null ? 1 : 0 ), 0);
       //jika  start_time dan finish_time null dan tidak didalam jangkauan permission days yang terdafatar maka absent.
       let absentDays = this.state.rows.reduce( (previousValue, currentValue) => previousValue + (!currentValue.start_working && !currentValue.finish_working && currentValue.permissions===null ? 1 : 0), 0 )
       var employeeDetail = this.state.employeeData.map( emp => {

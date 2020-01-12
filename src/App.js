@@ -37,7 +37,7 @@ class App extends Component {
   
   componentDidMount = () => {
     
-    console.log(`Made with <3 with React.js`, Cookie.get('JWT_token'))
+    console.log(`Made with <3 with React.js`)
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
   }

@@ -73,7 +73,7 @@ class EditEmployeeComponent extends React.Component{
     .then( data => {
       this.setState( prevState => {
         // didn't think about data.data before...
-        console.log(data.data)
+
         return {
           ...prevState,
           ...(data.data), 
@@ -372,7 +372,7 @@ class EditEmployeeComponent extends React.Component{
 }
 
 const ModalProfilePictures = ({photos, onClick, onClose, selectedPhotoIdx}) => {
-  console.log(photos)
+
   
   let listPhoto = photos.map( (photo,idx) => {
     let colorRow = idx === selectedPhotoIdx ? 'row-green' : ''

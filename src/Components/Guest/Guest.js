@@ -97,7 +97,6 @@ export default class Guest extends React.Component{
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         
         that.setState({isLoading: false, info: data.message});
         that.navToLogin();

@@ -8,6 +8,7 @@ import Loading from '../Util/ModalAndLogin/Loading';
 import { API, savePrivilege } from '../Util/common';
 import Modal from '../Util/ModalAndLogin/Modal';
 import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
+import Map from '../Util/Map/Map';
 
 
 export default class Dashboard extends React.Component{
@@ -37,7 +38,6 @@ export default class Dashboard extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       if (data.data){
         const {allow_manage_absence, allow_manage_employee, allow_manage_office, allow_manage_position} = data.data.role_data;
         savePrivilege(data.data.is_company, allow_manage_absence, allow_manage_employee, allow_manage_office, allow_manage_position);
@@ -63,18 +63,15 @@ export default class Dashboard extends React.Component{
     
     var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
     queryString.length > 0 && (queryString = '?' + queryString);
-    console.log(queryString)
     await fetch(`${this.api}/api/absence${queryString}`, {
       headers: {
         'authorization': Cookie.get('JWT_token')
       }
     })
-    .then(res => console.log(res) || res.json())
+    .then(res => res.json())
     .then(data => {
-      console.log(data)
       if (data.data){
         // this.setState({info: data.message})
-        console.log(data.data)
         this.setState({tableRows: data.data})
       }
       else this.setState({info: data.message})
@@ -82,7 +79,13 @@ export default class Dashboard extends React.Component{
     .catch(err => this.setState({info: err.toString()}))
     this.setState({isLoading: false});
   }
-
+  showMap = (lat, lng) => {
+    this.setState({viewLatitude: lat, viewLongitude: lng})
+    this.toggleShowMap()
+  }
+  toggleShowMap = () => {
+    this.setState({viewLocation: !this.state.viewLocation})
+  }
   render(){
 
  
@@ -99,13 +102,14 @@ export default class Dashboard extends React.Component{
             </div>
           </Modal>
         }
+        {this.state.viewLocation && <MapModal lat={this.state.viewLatitude} lng={this.state.viewLongitude} onClose={this.toggleShowMap} />}
         <Summary 
           companyName={this.state.company_name}
           address={this.state.address} 
           amountOfEmployee={this.state.amountOfEmployee}
           amountOfOffice={this.state.amountOfOffice}
         />
-        <AbsenceTable onClickImage={this.showImage} amountOfRows="5" tableRows={this.state.tableRows}/>
+        <AbsenceTable showMap={this.showMap} onClickImage={this.showImage} amountOfRows="5" tableRows={this.state.tableRows}/>
         
       </>
     )
@@ -136,4 +140,14 @@ const Summary = ({companyName, address, amountOfEmployee, amountOfOffice}) => {
   )
 }
 
+
+const MapModal = ({onClose, lat, lng}) => (
+  <Modal>
+    <div className="container-col container-ctr">
+      
+      <Map viewMode latitude={lat} longitude={lng} mapHeight='50vh' mapWidth='100%'/>
+      <ButtonPrimary text="CLOSE" onClick={onClose}/>
+    </div>
+  </Modal>
+)
 

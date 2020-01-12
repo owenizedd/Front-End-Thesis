@@ -24,35 +24,39 @@ export default class AddPermission extends React.Component{
 
   handleClick = async() => {
     this.setState({isLoading: true})
-    try{
-      let attachmentData = new URLSearchParams();
-      //TODO: BUG probably .jpg
-      
-      if (this.state.photos[0].indexOf('jpeg') === -1) {
-        this.setState({isLoading: false, info: `The image you're trying to submit is not in the correct .jpg / .jpeg format`})
-        return;
-      }
+
+    let attachmentData = new URLSearchParams();
+    //TODO: BUG probably .jpg
+    
+    if (this.state.photos[0] && this.state.photos[0].indexOf('jpeg') === -1) {
+      this.setState({isLoading: false, info: `The image you're trying to submit is not in the correct .jpg / .jpeg format`})
+      return;
+    }
+    if (this.state.photos[0] && this.state.photos[0].length){
       attachmentData.set('image', this.state.photos[0].slice(23, this.state.photos[0].length))
-       
-      attachmentData.set('employee_no', this.state.employee_no.value)
-      await fetch(`${this.api}/api/permission/attachment`, {
-        body: attachmentData,
-        method: 'POST',
-        headers: {
-          'authorization': Cookie.get('JWT_token')
-        }
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.data){
-          this.setState({ absence_photo_no: data.data.absence_photo_no})
-        }
-        else{
-          this.setState({ info: data.message})
-        }
-      })
-      .catch(err => this.setState({info: err.toString()}))
-      
+    }
+    try{
+     
+       if (this.state.photos[0] && this.state.photos[0].length){
+        attachmentData.set('employee_no', this.state.employee_no.value)
+        await fetch(`${this.api}/api/permission/attachment`, {
+          body: attachmentData,
+          method: 'POST',
+          headers: {
+            'authorization': Cookie.get('JWT_token')
+          }
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.data){
+            this.setState({ absence_photo_no: data.data.absence_photo_no})
+          }
+          else{
+            this.setState({ info: data.message})
+          }
+        })
+        .catch(err => this.setState({info: err.toString()}))
+      }
       let permissionData = convertToForm(this.refs.addPermissionForm);
       permissionData.delete('permission_date')
       permissionData.set('permission_reason_no', this.state.permission_reason_no.value)
@@ -65,7 +69,8 @@ export default class AddPermission extends React.Component{
         permissionData.set('from_date_time', new Date(this.state.start_range).toISOString().slice(0,10));
         permissionData.set('until_date_time', new Date(this.state.end_range).toISOString().slice(0,10))
       }
-      permissionData.set('absence_photo_no', this.state.absence_photo_no)
+      permissionData.set('absence_photo_no', this.state.absence_photo_no ? this.absence_photo_no : '')
+      if (!this.state.absence_photo_no) permissionData.delete('absence_photo_no')
 
       await fetch(`${this.api}/api/permission`,{
         body: permissionData,

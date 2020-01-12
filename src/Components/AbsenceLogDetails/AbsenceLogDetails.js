@@ -92,6 +92,7 @@ export default class AbsenceLogDetails extends React.Component{
   }
 
   miscFilterAbsences = () => {
+    this.setState({ filterEmployeeValue: null, filterOfficeValue: null, filterPositionValue: null})
     this.toggleFilterModal()
 
     this.fetchNewRows()
@@ -197,7 +198,7 @@ export default class AbsenceLogDetails extends React.Component{
       until_date: this.state.end_range && this.state.end_range.toISOString().slice(0,10),
       employee_no: this.state.filterEmployeeValue && this.state.filterEmployeeValue.value,
       office_no: this.state.filterOfficeValue && this.state.filterOfficeValue.value,
-      position_no: this.state.filterOfficeValue && this.state.filterPositionValue.value,
+      position_no: this.state.filterPositionValue && this.state.filterPositionValue.value,
 
     }
     for(let key in params){
@@ -206,7 +207,7 @@ export default class AbsenceLogDetails extends React.Component{
     
     var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
     queryString.length > 0 && (queryString = '?' + queryString);
-
+    console.warn(queryString)
     await fetch(`${this.api}/api/absence${queryString}`, {
       headers: {
         'authorization': Cookie.get('JWT_token')
