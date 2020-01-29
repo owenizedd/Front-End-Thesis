@@ -70,28 +70,28 @@ export default class AddRole extends React.Component {
         <div className="wrapper-form form-role">
           <form ref="addRoleForm"className="container-row">
             <div className="form-wrapper">
-            <label htmlFor="role_id">Role ID</label>
+            <label htmlFor="role_id">Role ID *</label>
               <FormInput required type="text" name="role_id" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="role_name">Role Name</label>
+              <label htmlFor="role_name">Role Name *</label>
               <FormInput required type="text" name="role_name" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="allow_manage_employee">Allow Manage Employee</label>
+              <label htmlFor="allow_manage_employee">Allow Manage Employee *</label>
               <input type="radio" name="allow_manage_employee" value="Yes" onChange={this.handleChange} checked={ allow_manage_employee==="Yes"}/> Yes
               <input type="radio" name="allow_manage_employee" value="No" onChange={this.handleChange} checked={ allow_manage_employee==="No"}/> No
               <br/>
-              <label htmlFor="allow_manage_office" >Allow Manage Office</label>
+              <label htmlFor="allow_manage_office" >Allow Manage Office *</label>
               <input type="radio" name="allow_manage_office" value="Yes" onChange={this.handleChange} checked={ allow_manage_office==="Yes"}/> Yes
               <input type="radio" name="allow_manage_office" value="No" onChange={this.handleChange} checked={ allow_manage_office==="No"}/> No
             </div>
             <div className="form-wrapper">
-              <label htmlFor="allow_manage_position">Allow Manage Position</label>
+              <label htmlFor="allow_manage_position">Allow Manage Position *</label>
               <input type="radio" name="allow_manage_position" value="Yes" onChange={this.handleChange} checked={ allow_manage_position==="Yes"}/> Yes
               <input type="radio" name="allow_manage_position" value="No" onChange={this.handleChange} checked={ allow_manage_position==="No"}/> No
               <br/>
-              <label htmlFor="allow_manage_absence">Allow Manage Absence</label>
+              <label htmlFor="allow_manage_absence">Allow Manage Absence *</label>
               <input type="radio" name="allow_manage_absence" value="Yes" onChange={this.handleChange} checked={ allow_manage_absence==="Yes"}/> Yes
               <input type="radio" name="allow_manage_absence" value="No" onChange={this.handleChange} checked={ allow_manage_absence==="No"}/> No
             </div>

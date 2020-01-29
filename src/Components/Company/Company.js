@@ -174,7 +174,7 @@ export default class Company extends React.Component{
               <FormInput type="text" onChange={this.handleChange} disabled name="username" value={this.state.username}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="company_name">Name</label>
+              <label htmlFor="company_name">Name *</label>
               <FormInput autoFocus required type="text" onChange={this.handleChange} name="company_name" value={this.state.company_name}/>
             </div>
             <div className="form-wrapper">
@@ -182,7 +182,7 @@ export default class Company extends React.Component{
               <FormInput required type="textarea" onChange={this.handleChange} name="address" value={this.state.address}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
               <FormInput required type="email" onChange={this.handleChange} name="email" value={this.state.email}/>
             </div>
             <div className="form-wrapper form-work-day mt-15">
@@ -262,15 +262,18 @@ export default class Company extends React.Component{
               </div>
             </div>
             <div className="form-wrapper mt-15">
-              <div className="container-row">
+              <div className="container-row"> 
                 <label htmlFor="allow_nebeng" className="mr-15">Allow Use Other Device</label>
                 <input type="radio" name="allow_nebeng" value="Yes" className="ml-auto radio-photo" checked={this.state.allow_nebeng === "Yes"} onChange={this.handleChange}/> Yes
                 <input type="radio" name="allow_nebeng" value="No" className="ml-15 radio-photo" checked={this.state.allow_nebeng==="No"} onChange={this.handleChange}/> No
               </div>
             </div>
-            <div className="form-wrapper">
-              <ButtonPrimary text="SUBMIT" onClick={this.handleClick}/>
-            </div>
+
+            {this.props.company &&
+              <div className="form-wrapper">
+                <ButtonPrimary text="SUBMIT" onClick={this.handleClick}/>
+              </div>
+            } 
           </form>
         </div>
       </>

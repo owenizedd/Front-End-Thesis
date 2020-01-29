@@ -83,11 +83,11 @@ export default class AddPosition extends React.Component{
         <div className="wrapper-form uneven-form label-ls-0">
           <form ref="addPositionForm"  className="container-row">
             <div className="form-wrapper">
-              <label htmlFor="position_name">Position ID</label>
+              <label htmlFor="position_name">Position ID *</label>
               <FormInput type="text" onChange={this.handleChange} required name="position_id"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="position_name">Position Name</label>
+              <label htmlFor="position_name">Position Name *</label>
               <FormInput type="text" onChange={this.handleChange} required name="position_name"/>
             </div>
             <div className="form-wrapper">
@@ -95,42 +95,42 @@ export default class AddPosition extends React.Component{
               <FormInputDropdown optional options={this.state.listPositions} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="">Maximum Days Leave Anually</label>
+              <label htmlFor="">Maximum Days Leave Anually *</label>
               <FormInput type="text" onChange={this.handleChange} required name="leave_quota"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="">Leave Valid After Days</label>
+              <label htmlFor="">Leave Valid After Days *</label>
               <FormInput type="text" onChange={this.handleChange} required name="leave_valid_after_days"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="late_tolerance_mins">Late Tolerance (Minutes)</label>
+              <label htmlFor="late_tolerance_mins">Late Tolerance (Minutes) *</label>
               <FormInput type="text" onChange={this.handleChange} required name="late_tolerance_mins"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="">Leave Valid For Days</label>
+              <label htmlFor="">Leave Valid For Days*</label>
               <FormInput type="text" onChange={this.handleChange} required name="leave_valid_for_days"/>
             </div>
             <div className="form-wrapper mt-15">
-              <label htmlFor="">Flexible Work Hours</label>
+              <label htmlFor="">Flexible Work Hours *</label>
               <input type="radio" value="Yes" name="is_flexible_work_hours" id=""/> Yes
               <input type="radio" value="0" name="is_flexible_work_hours" id=""/> No
               <br/>
-              <label htmlFor="">Use Company Settings</label>
+              <label htmlFor="">Use Company Settings*</label>
               <input type="radio" value="Yes" name="is_follow_company_settings" id=""/> Yes
               <input type="radio" value="0" name="is_follow_company_settings" id=""/> No
             </div>
             <div className="form-wrapper">
-            <label htmlFor="">Must Absence at Designated Office</label>
+            <label htmlFor="">Must Absence at Designated Office*</label>
               <br/>
               <input type="radio" value="Yes" name="must_same_office" id=""/> Yes
               <input type="radio" value="0" name="must_same_office" id=""/> No
               <br/>
-              <label htmlFor="">Absence by Photo</label>
+              <label htmlFor="">Absence by Photo*</label>
               <input type="radio" value="Yes" name="must_photo" id=""/> Yes
               <input type="radio" value="0" name="must_photo" id=""/> No
             </div>
             <div className="form-wrapper">
-            <label htmlFor="">Allow Use Other Device</label>
+            <label htmlFor="">Allow Use Other Device*</label>
               <input type="radio" value="Yes" name="allow_nebeng" id=""/> Yes
               <input type="radio" value="0" name="allow_nebeng" id=""/> No
             </div>

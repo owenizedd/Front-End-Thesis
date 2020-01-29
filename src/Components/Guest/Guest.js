@@ -103,7 +103,7 @@ export default class Guest extends React.Component{
       })
     }
     else{
-      this.setState({info: "Please at least fill correct username, email and password."});
+      this.setState({info: "Please at least fill correct username, email, password and company name."});
     }
   }
 
@@ -221,8 +221,8 @@ function Login({formRef, handleChange, handleClicklogin, navToRegister, navToRes
     <div className="form-container">
       <img alt="logo" className="bs" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
-        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username *"/>
+        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password *"/>
         <ButtonPrimary text="LOGIN" onClick={handleClicklogin}/>
         <p className="shadowed-text">Forgot your password? <span className="link-style-green" onClick={navToReset}>Reset it here</span></p>
         <p className="shadowed-text">Not registered yet? <span className="link-style-green" onClick={navToRegister}>Register now</span></p>
@@ -236,8 +236,8 @@ function ForgotPassword({formRef, handleChange, handleClickForgot, navToLogin}){
     <div className="form-container">
       <img alt="logo" className="logo" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
-        <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username *"/>
+        <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email *"/>
         <ButtonPrimary text="RESET PASSWORD" onClick={handleClickForgot}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
@@ -251,12 +251,12 @@ function Register({formRef, handleChange, handleClickRegister, navToLogin}){
     <div className="form-container">
       <img alt="logo" className="bs" src={LOGO} width="300px" height="auto"/>
       <form ref={formRef}>
-        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
-        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password"/>
-        <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username *"/>
+        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Password *"/>
+        <FormInput required type="email" name="email" onChange={handleChange} placeholder="Email *"/>
         <FormInput  type="text" name="phone_number" onChange={handleChange} placeholder="Phone Number"/>
         <FormInput  type="text" name="company_name" onChange={handleChange} placeholder="Company Name"/>
-        <FormInput  type="text" name="company_address" onChange={handleChange} placeholder="Company Address"/>
+        <FormInput  type="text" name="company_address" onChange={handleChange} placeholder="Company Address *"/>
         <ButtonPrimary text="REGISTER" onClick={handleClickRegister}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>
@@ -272,9 +272,9 @@ function ChangePassword({formRef, handleChange, handleClickChangePassword, navTo
       <h3>We've sent the code to your E-mail.<br/> Please insert the code in the form below.</h3>
       <form ref={formRef}>
 
-        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username"/>
-        <FormInput required type="text" name="code" onChange={handleChange} placeholder="Code"/>
-        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Your New Password"/>
+        <FormInput autoFocus required type="text" name="username" onChange={handleChange} placeholder="Username *"/>
+        <FormInput required type="text" name="code" onChange={handleChange} placeholder="Code *"/>
+        <FormInput required hidden type="password" name="password" onChange={handleChange} placeholder="Your New Password *"/>
         <ButtonPrimary text="CHANGE MY PASSWORD" onClick={handleClickChangePassword}/>
         <p className="shadowed-text">Want to login? <span className="link-style-green" onClick={navToLogin}>Login here</span></p>
       </form>

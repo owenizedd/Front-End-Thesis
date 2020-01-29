@@ -107,6 +107,20 @@ export default class AddEmployee extends React.Component{
     employeeData.set('work_date', workDate.toDateString()) 
     employeeData.set('birthdate', birthDate.toDateString());
 
+    
+    if (!employeeData.get('office_no')){
+      this.setState({info: 'Office is required.', isLoading: false})
+      return;
+    }
+    if (!employeeData.get('position_no')){
+      this.setState({info: 'Position is required.', isLoading: false})
+      return;
+    }
+    if (!employeeData.get('role_no')){
+      this.setState({info: 'Role is required.', isLoading: false})
+      return;
+    }
+
     await fetch(`${this.api}/api/employee`, {
       method: 'POST',
       body: employeeData,
@@ -138,19 +152,19 @@ export default class AddEmployee extends React.Component{
           <h1 className="ta-ctr">Add an Employee</h1>
           <form className="container-row" ref="addEmployeeForm" onSubmit={(e) => this.handleSubmit(e)}>
             <div className="form-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="username">Username *</label>
               <FormInput autoFocus required type="text" onChange={this.handleChange} name="username" value={this.state.username}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Password *</label>
               <FormInput required hidden type="password" onChange={this.handleChange} name="password" value={this.state.password}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="employee_name">Full Name</label>
+              <label htmlFor="employee_name">Full Name *</label>
               <FormInput required type="text" onChange={this.handleChange} name="employee_name" value={this.state.full_name}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="employee_id">Employee ID</label>
+              <label htmlFor="employee_id">Employee ID *</label>
               <FormInput required type="text" onChange={this.handleChange} name="employee_id" value={this.state.employee_id}/>
             </div>
             <div className="form-wrapper">
@@ -158,15 +172,15 @@ export default class AddEmployee extends React.Component{
               <FormInputDate className="mt-10" onChange={this.handleChange} icon="fa-calendar" name="work_date"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="office_no">Office</label>
+              <label htmlFor="office_no">Office *</label>
               <FormInputDropdown options={this.state.listOffices} onChange={this.handleChange} placeholder="Select an office..." name="office_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="position_no">Position</label>
+              <label htmlFor="position_no">Position *</label>
               <FormInputDropdown options={this.state.listPositions} onChange={this.handleChange} placeholder="Select a position..." name="position_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="role_no">Role</label>
+              <label htmlFor="role_no">Role *</label>
               <FormInputDropdown optional options={this.state.listRoles} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
             </div>
             <div className="form-wrapper">
@@ -178,7 +192,7 @@ export default class AddEmployee extends React.Component{
               <FormInput required type="text" onChange={this.handleChange} name="hp" value={this.state.hp}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
               <FormInput required type="email" onChange={this.handleChange} name="email" value={this.state.email}/>
             </div>
             <div className="form-wrapper">
@@ -186,7 +200,7 @@ export default class AddEmployee extends React.Component{
               <FormInputDate  className="mt-10" onChange={this.handleChange} icon="fa-calendar" name="birthdate"/>
             </div>
             <div className="form-wrapper  mt-15">
-              <label htmlFor="gender" className="mr-15">Gender</label>
+              <label htmlFor="gender" className="mr-15">Gender *</label>
               <input type="radio" name="gender" value="Yes" checked={this.state.gender==="Yes"} onChange={this.handleChange}/> Male
               <input type="radio" name="gender" value="No" checked={this.state.gender==="No"} onChange={this.handleChange}/> Female
             </div>

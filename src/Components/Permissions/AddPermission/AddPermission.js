@@ -228,23 +228,23 @@ export default class AddPermission extends React.Component{
         <div className={`wrapper-form form-permission`}>
           <form ref="addPermissionForm" className="container-row">
             <div className="form-wrapper">
-              <label htmlFor="employee_no">Employee's Name</label>
+              <label htmlFor="employee_no">Employee's Name *</label>
               <FormInputDropdown onChange={this.handleChange} options={this.state.listEmployee} className="mt-15"  placeholder="-- Select an Employee --" name="employee_no"/>
             </div>
             <div className="form-wrapper"></div>
             <div className="form-wrapper">
-              <label htmlFor="permission_reason_no">Permission Reason</label>
+              <label htmlFor="permission_reason_no">Permission Reason *</label>
               <FormInputDropdown onChange={this.handleChange} options={this.state.listPermissions} className="mt-15"name="permission_reason_no"  placeholder="-- Select a Reason --"/>
             </div>
             <div className="form-wrapper mt-15">
-              <label  htmlFor="permission_date">Permission Date</label>
+              <label  htmlFor="permission_date">Permission Date *</label>
               <br/>
               <input type="radio" onChange={this.handleChange} checked={this.state.permission_date==="one"} name="permission_date" value="one"/> One Day
               <input type="radio" onChange={this.handleChange} checked={this.state.permission_date==="custom"} name="permission_date" value="custom"/> Custom Duration
             
             </div>
             <div className="form-wrapper">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="description">Description </label>
               <FormInput type="text" onChange={this.handleChange} name="description"/>
             </div>
             {

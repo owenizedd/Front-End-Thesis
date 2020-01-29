@@ -80,7 +80,7 @@ class App extends Component {
               getSession() ?  <Dashboard/> : <Guest toggleLoggedIn={this.toggleLoggedIn} />
             )}/>
             <Route path="/company" exact render={() => (
-              getSession() ? (getSession('isCompany') ? <Company/> : <NotAllowed/>) : <Redirect to="/"/>
+              getSession() ? (getSession('isCompany') ? <Company company/> : <Company/>) : <Redirect to="/"/>
             )}/>
       
             <Route path="/employees" exact render={() => (

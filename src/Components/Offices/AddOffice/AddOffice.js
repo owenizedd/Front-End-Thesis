@@ -72,15 +72,15 @@ export default class AddOffice extends React.Component{
         <div className="wrapper-form">
           <form ref="addOfficeForm" className="container-row">
             <div className="form-wrapper">
-              <label htmlFor="office_id">Office ID</label>
+              <label htmlFor="office_id">Office ID *</label>
               <FormInput autoFocus type="text" name="office_id" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="office_name">Office Name</label>
+              <label htmlFor="office_name">Office Name *</label>
               <FormInput type="text" name="office_name" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="office_name">Office Address</label>
+              <label htmlFor="office_name">Office Address *</label>
               <FormInput type="text" name="address" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper mt-15">

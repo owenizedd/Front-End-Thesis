@@ -298,7 +298,7 @@ class EditEmployeeComponent extends React.Component{
           <h1 className="ta-ctr">Edit an Employee</h1>
           <form className="container-row" ref="editEmployeeForm" onSubmit={(e) => this.handleSubmit(e)}>
             <div className="form-wrapper">
-              <label  htmlFor="username">Username</label>
+              <label  htmlFor="username">Username *</label>
               <FormInput required type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
@@ -306,11 +306,11 @@ class EditEmployeeComponent extends React.Component{
               <FormInput required autofocus hidden type="password" onChange={this.handleChange} name="password" value={this.state.password}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="employee_name">Full Name</label>
+              <label htmlFor="employee_name">Full Name *</label>
               <FormInput required type="text" onChange={this.handleChange} name="employee_name" value={this.state.employee_name}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="employee_id">Employee ID</label>
+              <label htmlFor="employee_id">Employee ID *</label>
               <FormInput required type="text" onChange={this.handleChange} name="employee_id" value={this.state.employee_id}/>
             </div>
             <div className="form-wrapper">
@@ -318,15 +318,15 @@ class EditEmployeeComponent extends React.Component{
               <FormInputDate hasInitialValue value={this.state.work_date} onChange={this.handleChange} icon="fa-calendar" name="work_date"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="office_no">Office</label>
+              <label htmlFor="office_no">Office *</label>
               <FormInputDropdown options={this.state.listOffices} value={officeValue} onChange={this.handleChange} placeholder="Select an office..." name="office_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="position_no">Position</label>
+              <label htmlFor="position_no">Position *</label>
               <FormInputDropdown options={this.state.listPositions} value={positionValue} onChange={this.handleChange} placeholder="Select a position..." name="position_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="role_no">Role</label>
+              <label htmlFor="role_no">Role *</label>
               <FormInputDropdown optional options={this.state.listRoles} value={roleValue} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
             </div>
             <div className="form-wrapper">
@@ -338,7 +338,7 @@ class EditEmployeeComponent extends React.Component{
               <FormInput required type="text" onChange={this.handleChange} name="hp" value={this.state.hp}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
               <FormInput required type="email" onChange={this.handleChange} name="email" value={this.state.email}/>
             </div>
             <div className="form-wrapper">

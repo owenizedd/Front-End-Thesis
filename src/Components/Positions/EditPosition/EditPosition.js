@@ -138,53 +138,53 @@ updated_on: null
         <div className="wrapper-form uneven-form label-ls-0">
           <form ref="editPositionForm"  className="container-row">
             <div className="form-wrapper">
-              <label htmlFor="position_name">Position ID</label>
+              <label htmlFor="position_name">Position ID*</label>
               <FormInput value={this.state.position_id}  type="text" onChange={this.handleChange} required name="position_id"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="position_name">Position Name</label>
+              <label htmlFor="position_name">Position Name*</label>
               <FormInput value={this.state.position_name} type="text" onChange={this.handleChange} required name="position_name"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="superior_position_no">Superior No.</label>
+              <label htmlFor="superior_position_no">Superior No. </label>
               <FormInputDropdown optional options={this.state.listPositions} value={this.state.superior_position_no} name="superior_position_no" placeholder="-- Superior No. (Optional) --" onChange={this.handleChange}/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="leave_quota">Maximum Days Leave Anually</label>
+              <label htmlFor="leave_quota">Maximum Days Leave Anually*</label>
               <FormInput type="text" value={this.state.leave_quota} onChange={this.handleChange} required name="leave_quota"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="leave_valid_after_days">Leave Valid After Days</label>
+              <label htmlFor="leave_valid_after_days">Leave Valid After Days*</label>
               <FormInput type="text" value={this.state.leave_valid_after_days} onChange={this.handleChange} required name="leave_valid_after_days"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="late_tolerance_mins">Late Tolerance (Minutes)</label>
+              <label htmlFor="late_tolerance_mins">Late Tolerance (Minutes)*</label>
               <FormInput type="text" value={this.state.late_tolerance_mins} onChange={this.handleChange} required name="late_tolerance_mins"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="leave_valid_for_days">Leave Valid For Days</label>
+              <label htmlFor="leave_valid_for_days">Leave Valid For Days*</label>
               <FormInput type="text" value={this.state.leave_valid_for_days}onChange={this.handleChange} required name="leave_valid_for_days"/>
             </div>
             <div className="form-wrapper mt-15">
-              <label htmlFor="">Flexible Work Hours</label>
+              <label htmlFor="">Flexible Work Hours*</label>
               <input type="radio" value="Yes" name="is_flexible_work_hours" onChange={this.handleChange}   checked={this.state.is_flexible_work_hours==="Yes"}/> Yes
               <input type="radio" value="0" name="is_flexible_work_hours"  onChange={this.handleChange}   checked={this.state.is_flexible_work_hours==="0"}/> No
               <br/>
-              <label htmlFor="">Use Company Settings</label>
+              <label htmlFor="">Use Company Settings*</label>
               <input type="radio" value="Yes" name="is_follow_company_settings"  onChange={this.handleChange}   checked={this.state.is_follow_company_settings==="Yes"}/> Yes
               <input type="radio" value="0" name="is_follow_company_settings" onChange={this.handleChange}    checked={this.state.is_follow_company_settings==="0"}/> No
             </div>
             <div className="form-wrapper">
-            <label htmlFor="">Must Absence at Designated Office</label>
+            <label htmlFor="">Must Absence at Designated Office*</label>
               <input type="radio" value="Yes" name="must_same_office" onChange={this.handleChange}  checked={this.state.must_same_office==="Yes"}/> Yes
               <input type="radio" value="0" name="must_same_office"  onChange={this.handleChange} checked={this.state.must_same_office==="0"}/> No
               <br/>
-              <label htmlFor="">Absence by Photo</label>
+              <label htmlFor="">Absence by Photo*</label>
               <input type="radio" value="Yes" name="must_photo" onChange={this.handleChange}   checked={this.state.must_photo==="Yes"}/> Yes
               <input type="radio" value="0" name="must_photo" onChange={this.handleChange}  checked={this.state.must_photo==="0"}/> No
             </div>
             <div className="form-wrapper">
-            <label htmlFor="">Allow Use Other Device</label>
+            <label htmlFor="">Allow Use Other Device*</label>
               <input type="radio" value="Yes" name="allow_nebeng"  onChange={this.handleChange} checked={this.state.allow_nebeng==="Yes"} /> Yes
               <input type="radio" value="0" name="allow_nebeng"  onChange={this.handleChange}  checked={this.state.allow_nebeng==="0"}/> No
             </div>
