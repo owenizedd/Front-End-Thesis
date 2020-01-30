@@ -95,6 +95,7 @@ export default class AddEmployee extends React.Component{
 
      this.toggleLoading();
   }
+  
   handleClick = async() => {
     this.setState({isLoading: true});
     let employeeData = convertToForm(this.refs.addEmployeeForm);
@@ -131,6 +132,7 @@ export default class AddEmployee extends React.Component{
     })
     .catch(err => this.setState({isLoading: false, info: err.toString()}))
   }
+
   render(){
     return(
       <>

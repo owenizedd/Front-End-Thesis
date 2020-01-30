@@ -33,10 +33,11 @@ class App extends Component {
     sidebarIndex: 0,
     isLoggedIn: false,
     token: '',
+    isSideBarOpen: true
   }
   
   componentDidMount = () => {
-    
+    if (window.innerWidth <= 400) this.setState({isSideBarOpen: false})
     console.log(`Made with <3 with React.js`)
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
@@ -54,6 +55,7 @@ class App extends Component {
     this.setState({sidebarIndex: sidebarIndex});
 
   }
+  toggleSidebar = () => this.setState({isSideBarOpen: !this.state.isSideBarOpen})
   render(){
     //change all background to dark purple + padding left for body
     //so that the content wont get covered by sidebar. 
@@ -71,9 +73,10 @@ class App extends Component {
             </div>
           </Modal>
         }
+
         <div id="app" className={ "app-container" + (this.state.isLoggedIn ? ' pd-l-sidebar' : '')} >
           {
-            getSession() && <Sidebar sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>
+            getSession() && <Sidebar isSidebarOpen={this.state.isSideBarOpen} toggleSidebar={this.toggleSidebar} sidebarIndex={this.state.sidebarIndex} onClick={this.handleClickSidebar}/>
           }
           <Switch>
             <Route path="/" exact render={() => (

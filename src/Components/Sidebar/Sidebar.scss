@@ -53,9 +53,17 @@
   background: $color-bg-light;
   position: fixed;
   top: 0;
-  left: 0;
+  left: -80vw;
   box-shadow: 5px 0px 3px rgba(0,0,0,0.2);
   font-size: 1.2em;
+  
+  transition: 300ms all;
+}
+
+.active-sidebar{
+  left: 0;
+
+  transition: 300ms all;
 }
 
 .sidebar-links *{
@@ -78,4 +86,35 @@
   padding: 15px;
   padding-left: 0px;
   flex-wrap: wrap;
+}
+
+.toggle-sidebar{
+  display: none;
+}
+
+@media only screen and (max-width: 400px){
+  .toggle-sidebar{
+    display: block;
+    position: fixed;
+    opacity: 0.8;
+    z-index: 1;
+    border: 1px solid $color-orange;
+    margin: 15px;
+    border-radius: 10px;
+    padding: 7px 15px;
+    cursor: pointer;
+    background: $color-bg-darker;
+    box-shadow: 2px 1px 2px rgba(0,0,0,0.5);
+    
+  }
+  .pd-l-sidebar{
+    padding-left: 0 !important;
+  }
+  .sidebar-container{
+    width: 80vw;
+  }
+  .logo, .logo + h3{
+    margin-top: 70px
+  }
+  
 }

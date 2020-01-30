@@ -5,7 +5,7 @@ import ButtonPrimary from '../Util/ButtonPrimary/ButtonPrimary';
 import { API, saveSidebarState, savePrivilege, LOGO } from '../Util/common';
 import Cookie from 'js-cookie'
 import Modal from '../Util/ModalAndLogin/Modal';
-export default ({sidebarIndex, onClick}) => {
+export default ({sidebarIndex, onClick, toggleSidebar, isSidebarOpen}) => {
   let menuNames   = ["Home", "Company", "Employees", "Offices", "Roles", "Positions", "Absences", "Report", "Permissions"];
   let menuIcons   = ["fa-home", "fa-cogs", "fa-users", "fa-building", "fa-users-cog", "fa-list", "fa-money-check", "fa-chart-bar", "fa-tasks"];
   let target      = ["/", "/company", "/employees", "/offices", "/roles", "/positions", "/absences", "/report", "/permissions"]; 
@@ -24,8 +24,9 @@ export default ({sidebarIndex, onClick}) => {
   }
   return(
     <>
-     
-      <div className="sidebar-container">
+      <button className="toggle-sidebar" onClick={toggleSidebar}>Menu <i className="fa fa-bars"></i></button>
+      
+      <div className={`sidebar-container ${isSidebarOpen ? "active-sidebar" : ""}`}>
         <div className="sidebar-header">
           <img alt="logo" className="logo" src={LOGO} width="100px" height="auto"/>
           <h3>Recognisight</h3>
@@ -39,6 +40,7 @@ export default ({sidebarIndex, onClick}) => {
           
         </ul>
       </div>
+      
     </>
   )
 }
