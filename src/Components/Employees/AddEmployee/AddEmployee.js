@@ -116,10 +116,7 @@ export default class AddEmployee extends React.Component{
       this.setState({info: 'Position is required.', isLoading: false})
       return;
     }
-    if (!employeeData.get('role_no')){
-      this.setState({info: 'Role is required.', isLoading: false})
-      return;
-    }
+
 
     await fetch(`${this.api}/api/employee`, {
       method: 'POST',
@@ -180,7 +177,7 @@ export default class AddEmployee extends React.Component{
               <FormInputDropdown options={this.state.listPositions} onChange={this.handleChange} placeholder="Select a position..." name="position_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="role_no">Role *</label>
+              <label htmlFor="role_no">Role</label>
               <FormInputDropdown optional options={this.state.listRoles} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
             </div>
             <div className="form-wrapper">
@@ -200,7 +197,7 @@ export default class AddEmployee extends React.Component{
               <FormInputDate  className="mt-10" onChange={this.handleChange} icon="fa-calendar" name="birthdate"/>
             </div>
             <div className="form-wrapper  mt-15">
-              <label htmlFor="gender" className="mr-15">Gender *</label>
+              <label htmlFor="gender" className="mr-15">Gender</label>
               <input type="radio" name="gender" value="Yes" checked={this.state.gender==="Yes"} onChange={this.handleChange}/> Male
               <input type="radio" name="gender" value="No" checked={this.state.gender==="No"} onChange={this.handleChange}/> Female
             </div>

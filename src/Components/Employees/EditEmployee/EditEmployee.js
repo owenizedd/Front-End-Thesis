@@ -326,7 +326,7 @@ class EditEmployeeComponent extends React.Component{
               <FormInputDropdown options={this.state.listPositions} value={positionValue} onChange={this.handleChange} placeholder="Select a position..." name="position_no"/>
             </div>
             <div className="form-wrapper">
-              <label htmlFor="role_no">Role *</label>
+              <label htmlFor="role_no">Role</label>
               <FormInputDropdown optional options={this.state.listRoles} value={roleValue} onChange={this.handleChange} placeholder="Select a role..." name="role_no"/>
             </div>
             <div className="form-wrapper">
