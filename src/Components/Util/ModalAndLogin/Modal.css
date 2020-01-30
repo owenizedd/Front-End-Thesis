@@ -21,3 +21,10 @@
   -webkit-filter: blur(2px);
           filter: blur(2px);
 }
+
+@media only screen and (max-width: 420px) {
+  .modal {
+    left: 0;
+    width: 100vw;
+  }
+}

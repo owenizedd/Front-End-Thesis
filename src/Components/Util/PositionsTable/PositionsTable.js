@@ -56,7 +56,7 @@ const Rows = ({rows, amountOfRows, onClick, onDelete}) => {
   
   return(
     <>
-      <div className="container-row positions-head">
+      <div className="container-row table positions-head">
             <div className="ml-5">
             <div className="table-head ml-15">Position's ID</div>
             </div>
@@ -76,7 +76,7 @@ const Row = ({row, onClick, onDelete}) => {
   console.info(row);
   const color = row.createdByCompany ? "row-green" : row.differ ? "row-orange" : "row-normal";
   return(
-    <div className={`container-row positions-row ${color}`}>
+    <div className={`container-row table positions-row ${color}`}>
       <div className="table-data">{row.position_id}</div>
       <div className="table-data">{row.position_name}</div>
       <div className="table-data">{row.superior_position_no ? row.superior_position_no : '-'}</div>
