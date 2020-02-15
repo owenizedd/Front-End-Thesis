@@ -37,7 +37,7 @@ class App extends Component {
   }
   
   componentDidMount = () => {
-    if (window.innerWidth <= 400) this.setState({isSideBarOpen: false})
+    if (window.innerWidth <= 420) this.setState({isSideBarOpen: false})
     console.log(`Made with <3 with React.js`)
     this.setState({ sidebarIndex: getSidebarState() }) 
     if (getSession()) this.toggleLoggedIn();
