@@ -1,5 +1,5 @@
 # ReactJS----Thesis-Project
-Thesis / Final Project for Bachelor's Degree in Informatics Engineering, Built a website called Recognisight, I built the front end side
+Thesis / Final Project for Bachelor's Degree in Informatics Engineering, Built a website called Recognisight, I built the front end side with Tech stack are: HTML, CSS3 with SASS Preprocessor, ReactJS, Vanilla JavaScript, and using JWT as authentication. 
 
 Recognisight website, here's the link: http://157.230.43.112:3000/
 
